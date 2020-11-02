@@ -1,0 +1,21 @@
+# CLion project config
+.idea/
+*.iml
+modules.xml
+.idea/misc.xml
+*.ipr
+
+# CMake
+cmake-build-*/
+
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
