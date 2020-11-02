@@ -1,11 +1,16 @@
 cmake_minimum_required(VERSION 3.17)
 project(Sandbox)
 
+# Include directories
+include_directories(${CMAKE_SOURCE_DIR}/Neon/src)
+include_directories(${CMAKE_SOURCE_DIR}/Neon/vendor/spdlog/include)
+
+# Add files
 file(GLOB_RECURSE SOURCES src/**.h src/**.cpp)
 
-include_directories(${CMAKE_SOURCE_DIR}/Neon/src)
-
+# Create executable
 add_executable(${PROJECT_NAME} ${SOURCES})
 add_dependencies(${PROJECT_NAME} Neon)
 
+# Link dependencies
 target_link_libraries(${PROJECT_NAME} Neon)
