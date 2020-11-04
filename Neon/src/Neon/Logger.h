@@ -1,6 +1,7 @@
 #pragma once
 
-#include <memory>
+#include "neon_pch.h"
+
 #include "spdlog/spdlog.h"
 
 namespace Neon {

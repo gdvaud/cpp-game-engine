@@ -1,6 +1,6 @@
 #include "Application.h"
 
-#include <iostream>
+#include "neon_pch.h"
 
 namespace Neon {
     Application::Application() {}

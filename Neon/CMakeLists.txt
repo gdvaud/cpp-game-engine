@@ -10,3 +10,5 @@ file(GLOB_RECURSE SOURCES src/**.h src/**.cpp)
 
 # Create library
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
+target_precompile_headers(${PROJECT_NAME} PRIVATE src/neon_pch.h)
+

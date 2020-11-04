@@ -1,7 +1,8 @@
 #pragma once
 
+#include "neon_pch.h"
+
 #include "Event.h"
-#include <sstream>
 
 namespace Neon {
     
