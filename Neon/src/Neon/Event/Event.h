@@ -22,7 +22,7 @@ namespace Neon {
         
         virtual EventType GetEventType() const = 0;
         
-        virtual std::string ToString() {
+        virtual std::string ToString() const {
             return GetName();
         }
     

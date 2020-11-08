@@ -23,7 +23,7 @@ namespace Neon {
         // Overrides
         EVENT_TYPE_DEF(WindowResized);
         
-        std::string ToString() override {
+        std::string ToString() const override {
             std::stringstream ss;
             ss << "WindowResizedEvent {Width(" << _width << ") Height(" << _height << ")";
             return ss.str();
@@ -35,9 +35,34 @@ namespace Neon {
     
     class WindowClosedEvent : public Event {
     public:
-        WindowClosedEvent() {}
+        WindowClosedEvent() = default;
         
         // Overrides
         EVENT_TYPE_DEF(WindowClosed);
     };
+    
+    class AppTickEvent : public Event {
+    public:
+        AppTickEvent() = default;
+        
+        // Overrides
+        EVENT_TYPE_DEF(AppTick);
+    };
+    
+    class AppUpdateEvent : public Event {
+    public:
+        AppUpdateEvent() = default;
+        
+        // Overrides
+        EVENT_TYPE_DEF(AppUpdate);
+    };
+    
+    class AppRenderEvent : public Event {
+    public:
+        AppRenderEvent() = default;
+        
+        // Overrides
+        EVENT_TYPE_DEF(AppRender);
+    };
+    
 }
