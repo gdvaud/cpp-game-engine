@@ -3,6 +3,9 @@
 #include "WindowsWindow.h"
 
 #include "Core.h"
+#include "Neon/Event/ApplicationEvent.h"
+#include "Neon/Event/KeyEvent.h"
+#include "Neon/Event/MouseEvent.h"
 
 namespace Neon {
     static bool GLFWInitialized = false;
@@ -19,6 +22,10 @@ namespace Neon {
         Shutdown();
     }
     
+    static void GLFWErrorCallback(int error, const char *desc) {
+        NEO_CORE_ERROR("GLFW Error {0}: {1}", error, desc);
+    }
+    
     void WindowsWindow::Init(const WindowSettings &settings) {
         _data.Title = settings.Title;
         _data.Width = settings.Width;
@@ -31,6 +38,7 @@ namespace Neon {
             int success = glfwInit();
             NEO_CORE_ASSERT(success, "Could not init GLFW");
             
+            glfwSetErrorCallback(GLFWErrorCallback);
             GLFWInitialized = true;
         }
         
@@ -39,6 +47,68 @@ namespace Neon {
         glfwSetWindowUserPointer(_window, &_data);
         
         SetVSync(true);
+        
+        InitEvents();
+    }
+    
+    void WindowsWindow::InitEvents() {
+        glfwSetWindowCloseCallback(_window, [](GLFWwindow *window) {
+            WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
+            WindowClosedEvent event;
+            data.EventCallback(event);
+        });
+        glfwSetWindowSizeCallback(_window, [](GLFWwindow *window, int width, int height) {
+            WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
+            WindowResizedEvent event(width, height);
+            data.EventCallback(event);
+        });
+        glfwSetKeyCallback(_window, [](GLFWwindow *window, int key, int scancode, int action, int mods) {
+            WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
+            
+            switch (action) {
+                case GLFW_PRESS: {
+                    KeyPressedEvent event(key, 0);
+                    data.EventCallback(event);
+                    break;
+                }
+                case GLFW_REPEAT: {
+                    KeyPressedEvent event(key, 0);
+                    data.EventCallback(event);
+                    break;
+                }
+                case GLFW_RELEASE: {
+                    KeyReleasedEvent event(key);
+                    data.EventCallback(event);
+                    break;
+                }
+            }
+        });
+        glfwSetMouseButtonCallback(_window, [](GLFWwindow *window, int button, int action, int mods) {
+            WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
+            
+            switch (action) {
+                case GLFW_PRESS: {
+                    MouseButtonPressedEvent event(button);
+                    data.EventCallback(event);
+                    break;
+                }
+                case GLFW_RELEASE: {
+                    MouseButtonReleasedEvent event(button);
+                    data.EventCallback(event);
+                    break;
+                }
+            }
+        });
+        glfwSetCursorPosCallback(_window, [](GLFWwindow *window, double x, double y) {
+            WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
+            MouseMovedEvent event((float) x, (float) y);
+            data.EventCallback(event);
+        });
+        glfwSetScrollCallback(_window, [](GLFWwindow *window, double xOffset, double yOffset) {
+            WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
+            MouseScrolledEvent event((float) xOffset, (float) yOffset);
+            data.EventCallback(event);
+        });
     }
     
     void WindowsWindow::Shutdown() {
@@ -53,6 +123,7 @@ namespace Neon {
         glfwSwapBuffers(_window);
     }
     
+    // == Accessors ==================
     uint16_t WindowsWindow::GetWidth() const {
         return _data.Width;
     }
@@ -61,7 +132,7 @@ namespace Neon {
         return _data.Height;
     }
     
-    void WindowsWindow::SetEventCallback(EventCallbackFn& callback) {
+    void WindowsWindow::SetEventCallback(const EventCallbackFn &callback) {
         _data.EventCallback = callback;
     }
     
@@ -78,4 +149,5 @@ namespace Neon {
     bool WindowsWindow::IsVSync() {
         return _data.VSync;
     }
+    // ===============================
 }

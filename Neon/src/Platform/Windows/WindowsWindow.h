@@ -16,12 +16,13 @@ namespace Neon {
         // Window attributes
         inline uint16_t GetWidth() const override;
         inline uint16_t GetHeight() const override;
-        void SetEventCallback(EventCallbackFn& callback) override;
+        void SetEventCallback(const EventCallbackFn& callback) override;
         void SetVSync(bool enabled) override;
         bool IsVSync() override;
     
     private:
         virtual void Init(const WindowSettings &settings);
+        virtual void InitEvents();
         virtual void Shutdown();
     private:
         GLFWwindow *_window;
