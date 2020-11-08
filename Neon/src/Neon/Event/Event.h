@@ -2,8 +2,6 @@
 
 #include "neon_pch.h"
 
-#include "EventDispatcher.h"
-
 namespace Neon {
     enum class EventType {
         None = 0,
@@ -30,5 +28,23 @@ namespace Neon {
     
     protected:
         bool _handled = false;
+    };
+    
+    class EventDispatcher {
+    public:
+        EventDispatcher(Event &event)
+                : _event(event) {}
+        
+        template<typename T>
+        bool Dispatch(std::function<bool(T &)> callback) {
+            if (_event.GetEventType() == T::GetStaticEventType()) {
+                _event._handled = callback(_event);
+            }
+            
+            return _event._handled;
+        }
+    
+    private:
+        Event &_event;
     };
 }

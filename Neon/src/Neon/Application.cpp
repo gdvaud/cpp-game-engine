@@ -1,4 +1,8 @@
+#include "neon_pch.h"
+
 #include "Application.h"
+
+#include <GLFW/glfw3.h>
 
 namespace Neon {
     Application::Application() {
@@ -9,6 +13,9 @@ namespace Neon {
     
     void Application::Run() {
         while (_running) {
+            glClearColor(1, 0, 1, 1);
+            glClear(GL_COLOR_BUFFER_BIT);
+            
             _window->OnUpdate();
         }
     }

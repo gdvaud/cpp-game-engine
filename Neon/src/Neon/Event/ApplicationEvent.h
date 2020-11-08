@@ -25,7 +25,7 @@ namespace Neon {
         
         std::string ToString() override {
             std::stringstream ss;
-            ss << "WindowResizedEvent {width(" << _width << ") height(" << _height << ")";
+            ss << "WindowResizedEvent {Width(" << _width << ") Height(" << _height << ")";
             return ss.str();
         }
     

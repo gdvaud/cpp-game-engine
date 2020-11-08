@@ -6,3 +6,5 @@
 
 #include <string>
 #include <sstream>
+
+#include "Neon/Logger.h"
