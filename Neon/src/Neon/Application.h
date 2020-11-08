@@ -14,7 +14,7 @@ namespace Neon {
 
     private:
         std::unique_ptr<Window> _window;
-        bool _running;
+        bool _running = true;
     };
     
     Application* CreateApplication();

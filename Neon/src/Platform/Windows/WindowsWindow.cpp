@@ -2,6 +2,8 @@
 
 #include "WindowsWindow.h"
 
+#include "Core.h"
+
 namespace Neon {
     static bool GLFWInitialized = false;
     
@@ -44,6 +46,9 @@ namespace Neon {
     }
     
     void WindowsWindow::OnUpdate() {
+        glClearColor(1, 0, 1, 1);
+        glClear(GL_COLOR_BUFFER_BIT);
+        
         glfwPollEvents();
         glfwSwapBuffers(_window);
     }
@@ -56,8 +61,8 @@ namespace Neon {
         return _data.Height;
     }
     
-    void WindowsWindow::SetEventCallback(std::function<bool(Event &)> callback) {
-        _data.Callback = callback;
+    void WindowsWindow::SetEventCallback(EventCallbackFn& callback) {
+        _data.EventCallback = callback;
     }
     
     void WindowsWindow::SetVSync(bool enabled) {

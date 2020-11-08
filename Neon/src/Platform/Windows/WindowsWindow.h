@@ -2,6 +2,7 @@
 #include "neon_pch.h"
 
 #include <GLFW/glfw3.h>
+
 #include "Neon/Window.h"
 
 namespace Neon {
@@ -13,9 +14,9 @@ namespace Neon {
         void OnUpdate() override;
         
         // Window attributes
-        uint16_t GetWidth() const override;
-        uint16_t GetHeight() const override;
-        void SetEventCallback(std::function<bool(Event &)> callback) override;
+        inline uint16_t GetWidth() const override;
+        inline uint16_t GetHeight() const override;
+        void SetEventCallback(EventCallbackFn& callback) override;
         void SetVSync(bool enabled) override;
         bool IsVSync() override;
     
@@ -30,7 +31,7 @@ namespace Neon {
             uint16_t Width, Height;
             bool VSync;
             
-            EventCallbackFn Callback;
+            EventCallbackFn EventCallback;
         };
         WindowData _data;
     };
