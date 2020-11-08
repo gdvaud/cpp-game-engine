@@ -1,5 +1,9 @@
 #pragma once
 
+#include "neon_pch.h"
+
+#include "Window.h"
+
 namespace Neon {
     class Application {
     public:
@@ -7,6 +11,10 @@ namespace Neon {
         virtual ~Application();
     
         void Run();
+
+    private:
+        std::unique_ptr<Window> _window;
+        bool _running = true;
     };
     
     Application* CreateApplication();
