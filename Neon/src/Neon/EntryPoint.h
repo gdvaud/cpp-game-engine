@@ -2,8 +2,6 @@
 
 #ifdef NEON_PLATFORM_WINDOWS
 
-#include "Logger.h"
-
 extern Neon::Application *Neon::CreateApplication();
 
 int main(int argc, char **argv) {

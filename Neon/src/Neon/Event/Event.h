@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ostream>
 #include "neon_pch.h"
 
 namespace Neon {
@@ -17,20 +18,17 @@ namespace Neon {
                              std::string GetName() const override { return #type; }
     
     class Event {
-        friend class EventDispatcher;
-    
     public:
-        virtual std::string GetName() const = 0;
+        bool Handled = false;
         
-        virtual EventType GetEventType() const = 0;
-        
-        virtual std::string ToString() const {
-            return GetName();
-        }
-    
-    protected:
-        bool _handled = false;
+        virtual std::string GetName() const = 0;// { return ""; };
+        virtual EventType GetEventType() const = 0;// { return EventType::None; };
+        virtual std::string ToString() const { return GetName(); }
     };
+    
+    inline std::ostream &operator<<(std::ostream &os, const Event &event) {
+        return os << event.ToString();
+    }
     
     class EventDispatcher {
         template<typename T>
@@ -42,10 +40,10 @@ namespace Neon {
         template<typename T>
         bool Dispatch(EventCallback<T> callback) {
             if (_event.GetEventType() == T::GetStaticEventType()) {
-                _event._handled = callback(*(T *) &_event);
+                _event.Handled = callback(*(T *) &_event);
             }
             
-            return _event._handled;
+            return _event.Handled;
         }
     
     private:

@@ -1,7 +1,5 @@
 #include "Logger.h"
 
-#include "neon_pch.h"
-
 #include "spdlog/sinks/stdout_color_sinks.h"
 
 namespace Neon {

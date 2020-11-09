@@ -1,8 +1,23 @@
 #include "Neon.h"
 
+class SimpleLayer : public Neon::Layer {
+public:
+    SimpleLayer() : Layer("Simple") {}
+    
+    void OnUpdate() override {
+    
+    }
+    
+    void OnEvent(Neon::Event &event) override {
+        NEO_TRACE("{0}", event);
+    }
+};
+
 class SandboxApp : public Neon::Application {
 public:
-    SandboxApp() {}
+    SandboxApp() {
+        PushLayer(new SimpleLayer());
+    }
     
     ~SandboxApp() {}
 };

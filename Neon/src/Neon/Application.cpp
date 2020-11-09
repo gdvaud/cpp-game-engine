@@ -14,6 +14,9 @@ namespace Neon {
     
     void Application::Run() {
         while (_running) {
+            for (auto layer : _layerStack)
+                layer->OnUpdate();
+            
             _window->OnUpdate();
         }
     }
@@ -21,8 +24,23 @@ namespace Neon {
     void Application::OnEvent(Event &event) {
         EventDispatcher dispatcher(event);
         dispatcher.Dispatch<WindowClosedEvent>(BIND_EVENT_FN(Application::OnWindowClosed, this));
+        
+        for (auto it = _layerStack.end(); it != _layerStack.begin();) {
+            (*--it)->OnEvent(event);
+            if (event.Handled)
+                break;
+        }
     }
     
+    void Application::PushLayer(Layer *layer) {
+        _layerStack.PushLayer(layer);
+    }
+    
+    void Application::PushOverlay(Layer *layer) {
+        _layerStack.PushOverlay(layer);
+    }
+    
+    // == Private ========
     bool Application::OnWindowClosed(WindowClosedEvent &event) {
         _running = false;
         return true;
