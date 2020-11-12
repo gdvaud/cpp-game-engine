@@ -1,8 +1,6 @@
 #pragma once
 #include "neon_pch.h"
 
-#include <GLFW/glfw3.h>
-
 #include "Neon/Window.h"
 
 namespace Neon {

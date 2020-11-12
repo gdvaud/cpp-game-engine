@@ -45,6 +45,9 @@ namespace Neon {
         _window = glfwCreateWindow(_data.Width, _data.Height, _data.Title.c_str(), nullptr, nullptr);
         glfwMakeContextCurrent(_window);
         glfwSetWindowUserPointer(_window, &_data);
+    
+        int gladStatus = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
+        NEO_CORE_ASSERT(gladStatus, "Could not init Glad")
         
         SetVSync(true);
         

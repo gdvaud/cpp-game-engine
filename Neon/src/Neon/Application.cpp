@@ -1,8 +1,6 @@
 #include "neon_pch.h"
 #include "Application.h"
 
-#include <GLFW/glfw3.h>
-
 namespace Neon {
     
     Application::Application() {

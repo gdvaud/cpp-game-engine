@@ -10,11 +10,4 @@
 #include <sstream>
 #include <vector>
 
-
-#ifdef NEON_PLATFORM_WINDOWS
-    
-    #include <Windows.h>
-
-#endif
-
 #include "Neon/Logger.h"

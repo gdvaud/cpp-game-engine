@@ -9,7 +9,6 @@ public:
     }
     
     void OnEvent(Neon::Event &event) override {
-        NEO_TRACE("{0}", event);
     }
 };
 
