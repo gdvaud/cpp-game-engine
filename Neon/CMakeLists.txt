@@ -10,10 +10,14 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(vendor/glfw)
 
+# Imgui
+add_subdirectory(vendor/imgui)
+
 # Include directories
 include_directories(vendor/spdlog/include)
 include_directories(vendor/glad/include)
 include_directories(vendor/glfw/include)
+include_directories(vendor/imgui)
 include_directories(src)
 
 # Add files
