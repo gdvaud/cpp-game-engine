@@ -30,3 +30,4 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE src/neon_pch.h src/neon_window
 # Vendor libs linking
 target_link_libraries(${PROJECT_NAME} PRIVATE Glad)
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw ${GLFW_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE imgui)

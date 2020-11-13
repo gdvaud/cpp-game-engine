@@ -16,6 +16,7 @@ class SandboxApp : public Neon::Application {
 public:
     SandboxApp() {
         PushLayer(new SimpleLayer());
+        PushLayer(new Neon::ImGuiLayer());
     }
     
     ~SandboxApp() {}
