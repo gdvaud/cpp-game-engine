@@ -5,7 +5,6 @@ public:
     SimpleLayer() : Layer("Simple") {}
     
     void OnUpdate() override {
-    
     }
     
     void OnEvent(Neon::Event &event) override {

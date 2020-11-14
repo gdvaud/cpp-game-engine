@@ -1,6 +1,5 @@
 #pragma once
 
-#include <ostream>
 #include "neon_pch.h"
 
 namespace Neon {

@@ -1,5 +1,4 @@
 #pragma once
-#include "neon_pch.h"
 
 #include "Neon/Window.h"
 

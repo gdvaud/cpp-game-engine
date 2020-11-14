@@ -1,6 +1,3 @@
-#include <Core.h>
-#include "neon_pch.h"
-
 #include "Application.h"
 
 #include "Core.h"

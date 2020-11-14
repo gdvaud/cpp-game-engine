@@ -1,5 +1,3 @@
-#include "neon_pch.h"
-
 #include "Layer.h"
 
 namespace Neon {

@@ -8,6 +8,7 @@
 
 #include <string>
 #include <sstream>
+#include <ostream>
 #include <vector>
 
 #include "Neon/Logger.h"
