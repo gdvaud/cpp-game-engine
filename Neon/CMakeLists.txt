@@ -13,11 +13,15 @@ add_subdirectory(vendor/glfw)
 # Imgui
 add_subdirectory(vendor/imgui)
 
+# Glm
+add_subdirectory(vendor/glm)
+
 # Include directories
 include_directories(vendor/spdlog/include)
 include_directories(vendor/glad/include)
 include_directories(vendor/glfw/include)
 include_directories(vendor/imgui)
+include_directories(vendor/glm)
 include_directories(src)
 
 # Add files
@@ -32,3 +36,4 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE src/neon_pch.h src/neon_window
 target_link_libraries(${PROJECT_NAME} PRIVATE Glad)
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw ${GLFW_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} PRIVATE imgui)
+target_link_libraries(${PROJECT_NAME} PRIVATE glm)
