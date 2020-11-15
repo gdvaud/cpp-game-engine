@@ -26,6 +26,7 @@ namespace Neon {
         virtual void OnUpdate() = 0;
         
         // Window attributes
+        virtual void* GetNativeWindow() const = 0;
         virtual uint16_t GetWidth() const = 0;
         virtual uint16_t GetHeight() const = 0;
         virtual void SetEventCallback(const EventCallbackFn& callback) = 0;

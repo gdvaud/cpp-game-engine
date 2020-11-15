@@ -14,6 +14,11 @@
 #include "Neon/Event/MouseEvent.h"
 #include "Neon/Event/KeyEvent.h"
 
+// Inputs
+#include "Neon/Input.h"
+#include "Neon/KeyCodes.h"
+#include "Neon/MouseButtonCodes.h"
+
 // == EntryPoint ==
 #include "Neon/EntryPoint.h"
 // ================
