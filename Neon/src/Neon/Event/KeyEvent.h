@@ -6,7 +6,7 @@ namespace Neon {
     
     class KeyEvent : public Event {
     public:
-        inline int GetKeyCod() const { return _keyCode; }
+        inline int GetKeyCode() const { return _keyCode; }
     
     protected:
         KeyEvent(int keyCode) : _keyCode(keyCode) {}
@@ -47,5 +47,20 @@ namespace Neon {
         
         // Overrides
         EVENT_TYPE_DEF(KeyReleased);
+    };
+    
+    class KeyTypedEvent : public KeyEvent {
+    public:
+        KeyTypedEvent(int keyCode)
+                : KeyEvent(keyCode) {}
+        
+        std::string ToString() const override {
+            std::stringstream ss;
+            ss << "KeyTypedEvent:" << _keyCode;
+            return ss.str();
+        }
+        
+        // Overrides
+        EVENT_TYPE_DEF(KeyTyped);
     };
 }

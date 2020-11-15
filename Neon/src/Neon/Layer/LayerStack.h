@@ -4,6 +4,10 @@
 
 #include "Layer.h"
 
+#include "Neon/Event/ApplicationEvent.h"
+#include "Neon/Event/KeyEvent.h"
+#include "Neon/Event/MouseEvent.h"
+
 namespace Neon {
     class LayerStack {
     public:
