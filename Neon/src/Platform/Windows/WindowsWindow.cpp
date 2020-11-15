@@ -45,7 +45,7 @@ namespace Neon {
         _window = glfwCreateWindow(_data.Width, _data.Height, _data.Title.c_str(), nullptr, nullptr);
         glfwMakeContextCurrent(_window);
         glfwSetWindowUserPointer(_window, &_data);
-    
+        
         int gladStatus = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
         NEO_CORE_ASSERT(gladStatus, "Could not init Glad")
         
@@ -55,6 +55,7 @@ namespace Neon {
     }
     
     void WindowsWindow::InitEvents() {
+        // Window
         glfwSetWindowCloseCallback(_window, [](GLFWwindow *window) {
             WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
             WindowClosedEvent event;
@@ -65,6 +66,8 @@ namespace Neon {
             WindowResizedEvent event(width, height);
             data.EventCallback(event);
         });
+        
+        // Key
         glfwSetKeyCallback(_window, [](GLFWwindow *window, int key, int scancode, int action, int mods) {
             WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
             
@@ -86,6 +89,14 @@ namespace Neon {
                 }
             }
         });
+        
+        glfwSetCharCallback(_window, [](GLFWwindow *window, unsigned int keyCode) {
+            WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
+            KeyTypedEvent event(keyCode);
+            data.EventCallback(event);
+        });
+        
+        // Mouse
         glfwSetMouseButtonCallback(_window, [](GLFWwindow *window, int button, int action, int mods) {
             WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
             
@@ -119,9 +130,6 @@ namespace Neon {
     }
     
     void WindowsWindow::OnUpdate() {
-        glClearColor(1, 0, 1, 1);
-        glClear(GL_COLOR_BUFFER_BIT);
-        
         glfwPollEvents();
         glfwSwapBuffers(_window);
     }

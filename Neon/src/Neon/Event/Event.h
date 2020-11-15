@@ -1,6 +1,5 @@
 #pragma once
 
-#include <ostream>
 #include "neon_pch.h"
 
 namespace Neon {
@@ -8,11 +7,11 @@ namespace Neon {
         None = 0,
         WindowClosed, WindowResized, WindowFocused, WindowLostFocus, WindowMoved,
         AppTick, AppUpdate, AppRender,
-        KeyPressed, KeyReleased,
+        KeyPressed, KeyReleased, KeyTyped,
         MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
     };
 
-#define BIND_EVENT_FN(x, y) std::bind(&x, y, std::placeholders::_1)
+#define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 #define EVENT_TYPE_DEF(type) static EventType GetStaticEventType() { return EventType::type; } \
                              EventType GetEventType() const override { return GetStaticEventType(); } \
                              std::string GetName() const override { return #type; }

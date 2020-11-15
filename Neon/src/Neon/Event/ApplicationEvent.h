@@ -1,7 +1,5 @@
 #pragma once
 
-#include "neon_pch.h"
-
 #include "Event.h"
 
 namespace Neon {
@@ -12,11 +10,11 @@ namespace Neon {
                 : _width(width), _height(height) {}
         
         // Getters
-        inline uint32_t getWidth() const {
+        inline uint32_t GetWidth() const {
             return _width;
         }
         
-        inline uint32_t getHeight() const {
+        inline uint32_t GetHeight() const {
             return _height;
         }
         

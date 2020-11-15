@@ -5,7 +5,6 @@ public:
     SimpleLayer() : Layer("Simple") {}
     
     void OnUpdate() override {
-    
     }
     
     void OnEvent(Neon::Event &event) override {
@@ -16,6 +15,7 @@ class SandboxApp : public Neon::Application {
 public:
     SandboxApp() {
         PushLayer(new SimpleLayer());
+        PushLayer(new Neon::ImGuiLayer());
     }
     
     ~SandboxApp() {}
