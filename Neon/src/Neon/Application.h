@@ -6,6 +6,7 @@
 #include "Neon/Layer/LayerStack.h"
 #include "Neon/Event/Event.h"
 #include "Neon/Event/ApplicationEvent.h"
+#include "ImGui/ImGuiLayer.h"
 
 namespace Neon {
     class Application {
@@ -26,9 +27,10 @@ namespace Neon {
     private:
         bool OnWindowClosed(WindowClosedEvent &event);
         
-        std::unique_ptr<Window> _window;
         bool _running = true;
         
+        std::unique_ptr<Window> _window;
+        ImGuiLayer *_imGuiLayer;
         LayerStack _layerStack;
     
     private:

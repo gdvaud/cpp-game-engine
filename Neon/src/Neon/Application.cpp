@@ -11,6 +11,11 @@ namespace Neon {
         
         _window = std::unique_ptr<Window>(Window::Create());
         _window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+    
+        _layerStack = LayerStack();
+        
+        _imGuiLayer = new ImGuiLayer();
+        PushOverlay(_imGuiLayer);
     }
     
     Application::~Application() {
@@ -23,6 +28,11 @@ namespace Neon {
             
             for (auto layer : _layerStack)
                 layer->OnUpdate();
+            
+            _imGuiLayer->Begin();
+            for (auto layer : _layerStack)
+                layer->OnImGuiRender();
+            _imGuiLayer->End();
             
             _window->OnUpdate();
         }

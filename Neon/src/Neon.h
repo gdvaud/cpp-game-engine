@@ -6,7 +6,7 @@
 
 // Layers
 #include "Neon/Layer/Layer.h"
-#include "Neon/Layer/ImGuiLayer.h"
+#include "ImGui/ImGuiLayer.h"
 
 // Events
 #include "Neon/Event/Event.h"

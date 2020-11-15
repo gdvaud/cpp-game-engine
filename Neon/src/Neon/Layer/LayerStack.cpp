@@ -3,7 +3,7 @@
 namespace Neon {
     
     LayerStack::LayerStack() {
-        _insertIterator = begin();
+        _layerInsertIndex = 0;
     }
     
     LayerStack::~LayerStack() {
@@ -14,15 +14,18 @@ namespace Neon {
     }
     
     void LayerStack::PushLayer(Layer *layer) {
-        _insertIterator = _layers.emplace(_insertIterator, layer);
-        layer->OnAttach();
+        if (layer != nullptr) {
+            _layers.emplace(_layers.begin() + _layerInsertIndex, layer);
+            _layerInsertIndex++;
+            layer->OnAttach();
+        }
     }
     
     void LayerStack::PopLayer(Layer *layer) {
         auto it = std::find(begin(), end(), layer);
         if (it != end()) {
             _layers.erase(it);
-            _insertIterator--;
+            _layerInsertIndex--;
             
             layer->OnDetach();
         }
@@ -37,7 +40,7 @@ namespace Neon {
         auto it = std::find(begin(), end(), layer);
         if (it != end()) {
             _layers.erase(it);
-        
+            
             layer->OnDetach();
         }
     }

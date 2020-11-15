@@ -26,6 +26,6 @@ namespace Neon {
     
     private:
         std::vector<Layer *> _layers;
-        std::vector<Layer *>::iterator _insertIterator;
+        uint32_t _layerInsertIndex;
     };
 }

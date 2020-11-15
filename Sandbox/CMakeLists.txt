@@ -4,6 +4,7 @@ project(Sandbox)
 # Include directories
 include_directories(${CMAKE_SOURCE_DIR}/Neon/src)
 include_directories(${CMAKE_SOURCE_DIR}/Neon/vendor/spdlog/include)
+include_directories(${CMAKE_SOURCE_DIR}/Neon/vendor/imgui)
 include_directories(${CMAKE_SOURCE_DIR}/Neon/vendor/glm)
 
 # Add files
