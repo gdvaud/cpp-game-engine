@@ -1,6 +1,5 @@
-#include "Neon.h"
-
-#include "imgui.h"
+#include <Neon.h>
+#include <imgui.h>
 
 class SimpleLayer : public Neon::Layer {
 public:

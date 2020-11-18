@@ -1,7 +1,5 @@
 #include "OpenGLContext.h"
 
-#include <glad/glad.h>
-
 #include "Core.h"
 
 namespace Neon {

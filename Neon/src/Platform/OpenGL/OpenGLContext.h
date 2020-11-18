@@ -1,8 +1,8 @@
 #pragma once
 
-#include <GLFW/glfw3.h>
-
 #include "Neon/Renderer/GraphicContext.h"
+
+struct GLFWwindow;
 
 namespace Neon {
     class OpenGLContext : public GraphicContext {

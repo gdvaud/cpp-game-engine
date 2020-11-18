@@ -2,8 +2,6 @@
 
 #include "neon_pch.h"
 
-#include <glad/glad.h>
-
 namespace Neon {
     class Shader {
     public:
@@ -14,7 +12,7 @@ namespace Neon {
         void UnBind() const;
         
     private:
-        void HandleCompileError(GLuint shader);
+        void HandleCompileError(uint32_t shader);
     private:
         uint32_t _rendererId;
     };

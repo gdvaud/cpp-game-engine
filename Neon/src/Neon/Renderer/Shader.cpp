@@ -1,7 +1,5 @@
 #include "Shader.h"
 
-#include <glad/glad.h>
-
 #include "Core.h"
 
 namespace Neon {
@@ -78,7 +76,7 @@ namespace Neon {
         glDetachShader(program, fragmentShader);
     }
     
-    void Shader::HandleCompileError(GLuint shader) {
+    void Shader::HandleCompileError(uint32_t shader) {
         GLint maxLength = 0;
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
         
