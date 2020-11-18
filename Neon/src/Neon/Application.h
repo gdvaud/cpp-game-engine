@@ -7,6 +7,7 @@
 #include "Neon/Event/Event.h"
 #include "Neon/Event/ApplicationEvent.h"
 #include "ImGui/ImGuiLayer.h"
+#include "Neon/Renderer/Shader.h"
 
 namespace Neon {
     class Application {
@@ -33,6 +34,8 @@ namespace Neon {
         ImGuiLayer *_imGuiLayer;
         LayerStack _layerStack;
     
+        unsigned int _vertexArray, _vertexBuffer, _indexBuffer;
+        std::unique_ptr<Shader> _shader;
     private:
         static Application *_instance;
     };

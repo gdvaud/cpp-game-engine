@@ -12,7 +12,7 @@ file(GLOB_RECURSE SOURCES src/**.h src/**.cpp)
 
 # Create executable
 add_executable(${PROJECT_NAME} ${SOURCES})
-set_target_properties(${PROJECT_NAME} PROPERTIES UNITY_BUILD ON)
+#set_target_properties(${PROJECT_NAME} PROPERTIES UNITY_BUILD ON)
 
 # Add dependencies
 add_dependencies(${PROJECT_NAME} Neon)

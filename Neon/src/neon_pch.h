@@ -12,3 +12,9 @@
 #include <vector>
 
 #include "Neon/Logger.h"
+
+#ifdef NEON_PLATFORM_WINDOWS
+    
+    #include <Windows.h>
+
+#endif

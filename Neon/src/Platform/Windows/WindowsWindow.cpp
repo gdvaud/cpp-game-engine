@@ -4,6 +4,7 @@
 #include "Neon/Event/ApplicationEvent.h"
 #include "Neon/Event/KeyEvent.h"
 #include "Neon/Event/MouseEvent.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Neon {
     static bool GLFWInitialized = false;
@@ -41,7 +42,10 @@ namespace Neon {
         }
         
         _window = glfwCreateWindow(_data.Width, _data.Height, _data.Title.c_str(), nullptr, nullptr);
-        glfwMakeContextCurrent(_window);
+        
+        _context = new OpenGLContext(_window);
+        _context->Init();
+        
         glfwSetWindowUserPointer(_window, &_data);
         
         int gladStatus = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
@@ -129,7 +133,7 @@ namespace Neon {
     
     void WindowsWindow::OnUpdate() {
         glfwPollEvents();
-        glfwSwapBuffers(_window);
+        _context->SwapBuffers();
     }
     
     // == Accessors ==================

@@ -1,9 +1,11 @@
 #include "Application.h"
 
+#include <glad/glad.h>
+
 #include "Core.h"
 
 namespace Neon {
-    Application* Application::_instance = nullptr;
+    Application *Application::_instance = nullptr;
     
     Application::Application() {
         NEO_CORE_ASSERT(!_instance, "Application already exists");
@@ -11,11 +13,62 @@ namespace Neon {
         
         _window = std::unique_ptr<Window>(Window::Create());
         _window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
-    
+        
         _layerStack = LayerStack();
         
         _imGuiLayer = new ImGuiLayer();
         PushOverlay(_imGuiLayer);
+        
+        // Temporary
+        glCreateVertexArrays(1, &_vertexArray);
+        glBindVertexArray(_vertexArray);
+        glCreateBuffers(1, &_vertexBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
+        
+        float vertices[3 * 3] = {
+                -0.5f, -0.5f, 0.0f,
+                0.5f, -0.5f, 0.0f,
+                0.0f, 0.5f, 0.0f,
+        };
+        
+        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+        
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+        
+        glCreateBuffers(1, &_indexBuffer);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
+        
+        unsigned int indices[3] = {0, 1, 2};
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+        
+        // Shaders
+        std::string vertexStr = R"(
+            #version 330 core
+
+            layout(location = 0) in vec3 a_Position;
+
+            out vec3 v_Position;
+
+            void main() {
+                v_Position = a_Position;
+                gl_Position = vec4(a_Position, 1.0);
+            }
+        )";
+        
+        std::string fragmentStr = R"(
+            #version 330 core
+
+            layout(location = 0) out vec4 color;
+
+            in vec3 v_Position;
+
+            void main() {
+                color = vec4(v_Position * 0.5 + 0.5, 1.0);
+            }
+        )";
+        
+        _shader = std::make_unique<Shader>(vertexStr, fragmentStr);
     }
     
     Application::~Application() {
@@ -23,8 +76,12 @@ namespace Neon {
     
     void Application::Run() {
         while (_running) {
-            glClearColor(1, 0, 1, 1);
+            glClearColor(0.1f, 0.1f, 0.1f, 1);
             glClear(GL_COLOR_BUFFER_BIT);
+            
+            _shader->Bind();
+            glBindVertexArray(_vertexArray);
+            glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
             
             for (auto layer : _layerStack)
                 layer->OnUpdate();

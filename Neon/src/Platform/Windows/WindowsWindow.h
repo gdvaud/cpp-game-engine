@@ -1,6 +1,9 @@
 #pragma once
 
+#include "neon_windows_pch.h"
+
 #include "Neon/Window.h"
+#include "Neon/Renderer/GraphicContext.h"
 
 namespace Neon {
     class WindowsWindow : public Window {
@@ -24,6 +27,7 @@ namespace Neon {
         virtual void Shutdown();
     private:
         GLFWwindow *_window;
+        GraphicContext* _context;
         
         struct WindowData {
             std::string Title;
