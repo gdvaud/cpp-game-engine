@@ -2,12 +2,15 @@
 
 #include "neon_pch.h"
 
-#include "Window.h"
-#include "Neon/Layer/LayerStack.h"
+#include "Neon/Window.h"
 #include "Neon/Event/Event.h"
 #include "Neon/Event/ApplicationEvent.h"
+
+#include "Neon/Layer/LayerStack.h"
 #include "ImGui/ImGuiLayer.h"
+
 #include "Neon/Renderer/Shader.h"
+#include "Neon/Renderer/Buffer.h"
 
 namespace Neon {
     class Application {
@@ -34,8 +37,10 @@ namespace Neon {
         ImGuiLayer *_imGuiLayer;
         LayerStack _layerStack;
     
-        unsigned int _vertexArray, _vertexBuffer, _indexBuffer;
+        uint32_t _vertexArray;
         std::unique_ptr<Shader> _shader;
+        std::unique_ptr<VertexBuffer> _vertexBuffer;
+        std::unique_ptr<IndexBuffer> _indexBuffer;
     private:
         static Application *_instance;
     };

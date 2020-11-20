@@ -1,7 +1,5 @@
 #include "Application.h"
 
-#include <glad/glad.h>
-
 #include "Core.h"
 
 namespace Neon {
@@ -22,8 +20,6 @@ namespace Neon {
         // Temporary
         glCreateVertexArrays(1, &_vertexArray);
         glBindVertexArray(_vertexArray);
-        glCreateBuffers(1, &_vertexBuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
         
         float vertices[3 * 3] = {
                 -0.5f, -0.5f, 0.0f,
@@ -31,16 +27,13 @@ namespace Neon {
                 0.0f, 0.5f, 0.0f,
         };
         
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+        _vertexBuffer.reset(VertexBuffer::Create(vertices, 9));
         
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
         
-        glCreateBuffers(1, &_indexBuffer);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
-        
-        unsigned int indices[3] = {0, 1, 2};
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+        uint32_t indices[3] = {0, 1, 2};
+        _indexBuffer.reset(IndexBuffer::Create(indices, 3));
         
         // Shaders
         std::string vertexStr = R"(
@@ -81,7 +74,7 @@ namespace Neon {
             
             _shader->Bind();
             glBindVertexArray(_vertexArray);
-            glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+            glDrawElements(GL_TRIANGLES, _indexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
             
             for (auto layer : _layerStack)
                 layer->OnUpdate();
