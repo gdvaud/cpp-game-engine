@@ -22,12 +22,12 @@ namespace Neon {
     }
     
     void LayerStack::PopLayer(Layer *layer) {
-        auto it = std::find(begin(), end(), layer);
+        auto it = std::find(begin(), begin() + _layerInsertIndex, layer);
         if (it != end()) {
+            layer->OnDetach();
+            
             _layers.erase(it);
             _layerInsertIndex--;
-            
-            layer->OnDetach();
         }
     }
     
@@ -37,11 +37,10 @@ namespace Neon {
     }
     
     void LayerStack::PopOverlay(Layer *layer) {
-        auto it = std::find(begin(), end(), layer);
+        auto it = std::find(begin() + _layerInsertIndex, end(), layer);
         if (it != end()) {
-            _layers.erase(it);
-            
             layer->OnDetach();
+            _layers.erase(it);
         }
     }
 }
