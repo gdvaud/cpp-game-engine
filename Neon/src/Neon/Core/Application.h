@@ -30,6 +30,7 @@ namespace Neon {
 
     private:
         void InitScene();
+
     private:
         bool OnWindowClosed(WindowClosedEvent& event);
 

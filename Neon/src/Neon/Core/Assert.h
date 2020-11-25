@@ -13,7 +13,7 @@
             }                                          \
         }
 
-    #define NEO_ASSERT(check, msg) NEO_INTERNAL_ASSERT_IMPL(_, check, msg)
+    #define NEO_ASSERT(check, msg)      NEO_INTERNAL_ASSERT_IMPL(_, check, msg)
     #define NEO_CORE_ASSERT(check, msg) NEO_INTERNAL_ASSERT_IMPL(_CORE_, check, msg)
 #else
     #define NEO_ASSERT(...)

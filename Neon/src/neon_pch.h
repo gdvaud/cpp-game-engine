@@ -1,14 +1,13 @@
 #pragma once
 
-#include <iostream>
-#include <memory>
-#include <utility>
 #include <algorithm>
 #include <functional>
-
-#include <string>
-#include <sstream>
+#include <iostream>
+#include <memory>
 #include <ostream>
+#include <sstream>
+#include <string>
+#include <utility>
 #include <vector>
 
 #include "Neon/Core/Base.h"

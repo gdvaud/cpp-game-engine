@@ -15,3 +15,5 @@ AccessModifierOffset: -4
 AllowShortCaseLabelsOnASingleLine: true
 
 IndentPPDirectives: BeforeHash
+
+AlignConsecutiveMacros: true

@@ -1,8 +1,7 @@
 #pragma once
 
-#include "neon_pch.h"
-
 #include "Neon/Core/Input.h"
+#include "neon_pch.h"
 
 namespace Neon {
     class WindowsInput : public Input {
@@ -13,4 +12,4 @@ namespace Neon {
         float GetMouseX_Impl() override;
         float GetMouseY_Impl() override;
     };
-}
+}  // namespace Neon
