@@ -2,11 +2,11 @@
 
 #include "neon_pch.h"
 
-#include "Neon/Window.h"
+#include "Window.h"
 #include "Neon/Event/Event.h"
 #include "Neon/Event/ApplicationEvent.h"
 
-#include "Neon/Layer/LayerStack.h"
+#include "Neon/Core/LayerStack.h"
 #include "ImGui/ImGuiLayer.h"
 
 #include "Neon/Renderer/Shader.h"

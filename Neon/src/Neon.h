@@ -1,11 +1,21 @@
 #pragma once
 
-// Neon global includes
-#include "Neon/Application.h"
-#include "Neon/Logger.h"
+//////////////////////////////////////////
+// For use by application using Neon
+//////////////////////////////////////////
 
-// Layers
-#include "Neon/Layer/Layer.h"
+// Core headers
+#include "Neon/Core/Base.h"
+
+#include "Neon/Core/Application.h"
+#include "Neon/Core/Layer.h"
+#include "Neon/Core/Logger.h"
+#include "Neon/Core/Assert.h"
+
+#include "Neon/Core/Input.h"
+#include "Neon/Core/KeyCodes.h"
+#include "Neon/Core/MouseButtonCodes.h"
+
 #include "ImGui/ImGuiLayer.h"
 
 // Events
@@ -14,11 +24,6 @@
 #include "Neon/Event/MouseEvent.h"
 #include "Neon/Event/KeyEvent.h"
 
-// Inputs
-#include "Neon/Input.h"
-#include "Neon/KeyCodes.h"
-#include "Neon/MouseButtonCodes.h"
-
 // == EntryPoint ==
-#include "Neon/EntryPoint.h"
+#include "Neon/Core/EntryPoint.h"
 // ================

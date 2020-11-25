@@ -1,7 +1,5 @@
 #include "Application.h"
 
-#include "Core.h"
-
 namespace Neon {
     Application *Application::_instance = nullptr;
     

@@ -1,6 +1,6 @@
 #include "WindowsInput.h"
 
-#include "Neon/Application.h"
+#include "Neon/Core/Application.h"
 
 namespace Neon {
     Input *Input::_instance = new WindowsInput();

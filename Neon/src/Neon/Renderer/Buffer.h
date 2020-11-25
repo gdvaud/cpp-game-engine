@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Core.h>
-
 namespace Neon {
     enum class ShaderDataType {
         None = 0,

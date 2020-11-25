@@ -11,4 +11,5 @@
 #include <ostream>
 #include <vector>
 
-#include "Neon/Logger.h"
+#include "Neon/Core/Base.h"
+#include "Neon/Core/Logger.h"

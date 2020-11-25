@@ -1,7 +1,5 @@
 #include "Shader.h"
 
-#include "Core.h"
-
 namespace Neon {
     Shader::Shader(const std::string &vertexStr, const std::string &fragmentStr) {
         // ===== VERTEX =====

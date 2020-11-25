@@ -2,7 +2,7 @@
 
 #include "neon_windows_pch.h"
 
-#include "Neon/Window.h"
+#include "Neon/Core/Window.h"
 #include "Neon/Renderer/GraphicContext.h"
 
 namespace Neon {

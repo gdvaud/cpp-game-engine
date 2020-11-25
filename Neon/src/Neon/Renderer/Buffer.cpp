@@ -1,7 +1,6 @@
 #include "Buffer.h"
 
-#include "Renderer.h"
-#include "Core.h"
+#include "Neon/Renderer/Renderer.h"
 
 #include "Platform/OpenGL/OpenGLBuffer.h"
 

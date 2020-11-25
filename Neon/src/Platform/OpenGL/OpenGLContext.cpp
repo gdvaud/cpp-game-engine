@@ -1,7 +1,5 @@
 #include "OpenGLContext.h"
 
-#include "Core.h"
-
 namespace Neon {
     OpenGLContext::OpenGLContext(GLFWwindow *windowHandle)
             : _windowHandle(windowHandle) {

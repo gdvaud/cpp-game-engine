@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Neon/Layer/Layer.h>
+#include <Neon/Core/Layer.h>
 
 #include "Neon/Event/Event.h"
 #include "Neon/Event/ApplicationEvent.h"

@@ -2,7 +2,7 @@
 
 #include "neon_pch.h"
 
-#include "Neon/Input.h"
+#include "Neon/Core/Input.h"
 
 namespace Neon {
     class WindowsInput : public Input {

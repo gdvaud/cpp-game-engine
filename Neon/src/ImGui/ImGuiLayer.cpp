@@ -6,7 +6,7 @@
 #include "backends/imgui_impl_opengl3.h"
 #include "backends/imgui_impl_glfw.h"
 
-#include "Neon/Application.h"
+#include "Neon/Core/Application.h"
 
 namespace Neon {
     ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {}
