@@ -1,0 +1,17 @@
+# Use the Google style in this project.
+BasedOnStyle: Google
+
+Standard: c++17
+
+DerivePointerAlignment: false
+PointerAlignment: Left
+
+IndentWidth: 4
+ColumnLimit: 0
+
+NamespaceIndentation: All
+AccessModifierOffset: -4
+
+AllowShortCaseLabelsOnASingleLine: true
+
+IndentPPDirectives: BeforeHash

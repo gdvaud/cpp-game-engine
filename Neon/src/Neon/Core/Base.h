@@ -4,14 +4,16 @@
 
 #define NEO_ENABLE_ASSERTS
 
-// Macro utilities
-#define NEO_EXPAND_MACRO(x) x
-#define NEO_STRINGIFY_MACRO(x) #x
-
-namespace Hazel {
-    template<typename T>
+namespace Neon {
+    // Reference type definition
+    template <typename T>
     using Ref = std::shared_ptr<T>;
-}
+
+    template <typename T, typename... Args>
+    constexpr Ref<T> CreateRef(Args&&... args) {
+        return std::make_shared<T>(std::forward<Args>(args)...);
+    }
+}  // namespace Neon
 
 #include "Neon/Core/Assert.h"
 #include "Neon/Core/Logger.h"
