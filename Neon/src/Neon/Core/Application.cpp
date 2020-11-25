@@ -1,5 +1,8 @@
 #include "Application.h"
 
+#include "Neon/Renderer/RenderCommand.h"
+#include "Neon/Renderer/Renderer.h"
+
 namespace Neon {
     Application* Application::_instance = nullptr;
 
@@ -150,16 +153,18 @@ namespace Neon {
 
     void Application::Run() {
         while (_running) {
-            glClearColor(0.1f, 0.1f, 0.1f, 1);
-            glClear(GL_COLOR_BUFFER_BIT);
+            RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1});
+            RenderCommand::Clear();
+
+            Renderer::BeginScene();
 
             _blueColorShader->Bind();
-            _squareVertexArray->Bind();
-            glDrawElements(GL_TRIANGLES, _squareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+            Renderer::Submit(_squareVertexArray);
 
             _vertexColorShader->Bind();
-            _triangleVertexArray->Bind();
-            glDrawElements(GL_TRIANGLES, _triangleVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+            Renderer::Submit(_triangleVertexArray);
+
+            Renderer::EndScene();
 
             for (auto layer : _layerStack)
                 layer->OnUpdate();

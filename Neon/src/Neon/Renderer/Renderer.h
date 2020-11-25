@@ -1,16 +1,16 @@
 #pragma once
 
-namespace Neon {
-    enum class RendererAPI {
-        None = 0,
-        OpenGL = 1,
-    };
+#include "Neon/Renderer/RendererAPI.h"
+#include "Neon/Renderer/VertexArray.h"
 
+namespace Neon {
     class Renderer {
     public:
-        inline static RendererAPI GetAPI() { return _rendererAPI; }
+        static void BeginScene();
+        static void EndScene();
 
-    private:
-        static RendererAPI _rendererAPI;
+        static void Submit(const Ref<VertexArray> vertexArray);
+
+        inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
     };
 }  // namespace Neon
