@@ -29,9 +29,6 @@ namespace Neon {
         static inline Application& Get() { return *_instance; }
 
     private:
-        void InitScene();
-
-    private:
         bool OnWindowClosed(WindowClosedEvent& event);
 
         bool _running = true;
@@ -39,12 +36,6 @@ namespace Neon {
         std::unique_ptr<Window> _window;
         ImGuiLayer* _imGuiLayer;
         LayerStack _layerStack;
-
-        Ref<Shader> _vertexColorShader;
-        Ref<Shader> _blueColorShader;
-
-        Ref<VertexArray> _triangleVertexArray;
-        Ref<VertexArray> _squareVertexArray;
 
     private:
         static Application* _instance;
