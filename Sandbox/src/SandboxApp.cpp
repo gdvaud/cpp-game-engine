@@ -7,7 +7,9 @@ Neon::Application* Neon::CreateApplication() {
 }
 
 SimpleLayer::SimpleLayer()
-    : Layer("Simple"), _camera(-1.6f, 1.6f, -0.9f, 0.9f) {
+    : Layer("Simple"),
+      _camera(-1.6f, 1.6f, -0.9f, 0.9f),
+      _cameraPosition(0.0f) {
     InitModels();
     InitShaders();
 }
@@ -143,12 +145,14 @@ void SimpleLayer::InitShaders() {
     //////////////////////////
 }
 
-void SimpleLayer::OnUpdate() {
+void SimpleLayer::OnUpdate(Neon::TimeStep timeStep) {
+    HandleMovement(timeStep);
+
     Neon::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1});
     Neon::RenderCommand::Clear();
 
-    _camera.SetPosition({0.5f, 0.5f, 0.0f});
-    _camera.SetRotation(45.0f);
+    _camera.SetPosition(_cameraPosition);
+    _camera.SetRotation(_cameraRotation);
 
     Neon::Renderer::BeginScene(_camera);
 
@@ -156,6 +160,22 @@ void SimpleLayer::OnUpdate() {
     Neon::Renderer::Submit(_triangleVertexArray, _vertexColorShader);
 
     Neon::Renderer::EndScene();
+}
+void SimpleLayer::HandleMovement(Neon::TimeStep timeStep) {
+    if (Neon::Input::IsKeyPressed(NEO_KEY_A))
+        _cameraPosition.x += _cameraMoveSpeed * timeStep;
+    if (Neon::Input::IsKeyPressed(NEO_KEY_D))
+        _cameraPosition.x -= _cameraMoveSpeed * timeStep;
+
+    if (Neon::Input::IsKeyPressed(NEO_KEY_W))
+        _cameraPosition.y -= _cameraMoveSpeed * timeStep;
+    if (Neon::Input::IsKeyPressed(NEO_KEY_S))
+        _cameraPosition.y += _cameraMoveSpeed * timeStep;
+
+    if (Neon::Input::IsKeyPressed(NEO_KEY_Q))
+        _cameraRotation -= _cameraRotationSpeed * timeStep;
+    if (Neon::Input::IsKeyPressed(NEO_KEY_E))
+        _cameraRotation += _cameraRotationSpeed * timeStep;
 }
 
 void SimpleLayer::OnImGuiRender() {}

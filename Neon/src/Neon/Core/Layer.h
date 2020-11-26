@@ -2,6 +2,7 @@
 
 #include <string>
 
+#include "Neon/Core/TimeStep.h"
 #include "Neon/Event/Event.h"
 
 namespace Neon {
@@ -11,7 +12,7 @@ namespace Neon {
         virtual ~Layer();
 
         virtual void OnAttach() {}
-        virtual void OnUpdate() {}
+        virtual void OnUpdate(TimeStep timeStep) {}
         virtual void OnImGuiRender() {}
         virtual void OnEvent(Event& event) {}
         virtual void OnDetach() {}

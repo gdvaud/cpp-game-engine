@@ -21,8 +21,12 @@ namespace Neon {
 
     void Application::Run() {
         while (_running) {
+            auto time = (float) glfwGetTime();
+            TimeStep timeStep = time - _lastFrameTime;
+            _lastFrameTime = time;
+
             for (auto layer : _layerStack)
-                layer->OnUpdate();
+                layer->OnUpdate(timeStep);
 
             _imGuiLayer->Begin();
             for (auto layer : _layerStack)

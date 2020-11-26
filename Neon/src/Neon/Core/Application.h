@@ -34,6 +34,8 @@ namespace Neon {
         ImGuiLayer* _imGuiLayer;
         LayerStack _layerStack;
 
+        float _lastFrameTime = 0.0f;
+
     private:
         static Application* _instance;
     };

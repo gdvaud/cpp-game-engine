@@ -13,6 +13,7 @@
 #include "Neon/Core/Layer.h"
 #include "Neon/Core/Logger.h"
 #include "Neon/Core/MouseButtonCodes.h"
+#include "Neon/Core/TimeStep.h"
 
 // ImGui
 #include "ImGui/ImGuiLayer.h"
