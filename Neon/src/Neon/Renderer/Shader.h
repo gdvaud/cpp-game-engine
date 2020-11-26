@@ -1,6 +1,7 @@
 #pragma once
 
-#include "neon_pch.h"
+#include <glm/glm.hpp>
+#include <string>
 
 namespace Neon {
     class Shader {
@@ -10,6 +11,8 @@ namespace Neon {
 
         void Bind() const;
         void UnBind() const;
+
+        void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
 
     private:
         void HandleCompileError(uint32_t shader);

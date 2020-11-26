@@ -1,8 +1,5 @@
 #include "Application.h"
 
-#include "Neon/Renderer/RenderCommand.h"
-#include "Neon/Renderer/Renderer.h"
-
 namespace Neon {
     Application* Application::_instance = nullptr;
 

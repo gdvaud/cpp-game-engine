@@ -1,14 +1,11 @@
 #pragma once
 
-#include <neon_pch.h>
+#include <memory>
 
 #include "ImGui/ImGuiLayer.h"
 #include "Neon/Core/LayerStack.h"
 #include "Neon/Event/ApplicationEvent.h"
 #include "Neon/Event/Event.h"
-#include "Neon/Renderer/Buffer.h"
-#include "Neon/Renderer/Shader.h"
-#include "Neon/Renderer/VertexArray.h"
 #include "Window.h"
 
 namespace Neon {

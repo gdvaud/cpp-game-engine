@@ -15,6 +15,8 @@ private:
     void InitShaders();
 
 private:
+    Neon::OrthographicCamera _camera;
+
     Neon::Ref<Neon::Shader> _vertexColorShader;
     Neon::Ref<Neon::Shader> _blueColorShader;
 

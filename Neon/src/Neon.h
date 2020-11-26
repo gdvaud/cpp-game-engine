@@ -25,6 +25,7 @@
 
 // Renderer
 #include "Neon/Renderer/Buffer.h"
+#include "Neon/Renderer/OrthographicCamera.h"
 #include "Neon/Renderer/RenderCommand.h"
 #include "Neon/Renderer/Renderer.h"
 #include "Neon/Renderer/Shader.h"

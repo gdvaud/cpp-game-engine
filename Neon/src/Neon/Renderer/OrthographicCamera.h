@@ -13,8 +13,8 @@ namespace Neon {
             RecalculateViewMatrix();
         }
 
-        const glm::vec3& GetRotation() const { return _rotation; }
-        void SetRotation(const glm::vec3& rotation) {
+        float GetRotation() const { return _rotation; }
+        void SetRotation(const float rotation) {
             _rotation = rotation;
             RecalculateViewMatrix();
         }
