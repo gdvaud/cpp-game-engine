@@ -7,15 +7,15 @@ namespace Neon {
     class WindowResizedEvent : public Event {
     public:
         WindowResizedEvent(uint32_t width, uint32_t height)
-            : _width(width), _height(height) {}
+            : m_Width(width), m_Height(height) {}
 
         // Getters
         inline uint32_t GetWidth() const {
-            return _width;
+            return m_Width;
         }
 
         inline uint32_t GetHeight() const {
-            return _height;
+            return m_Height;
         }
 
         // Overrides
@@ -23,12 +23,12 @@ namespace Neon {
 
         std::string ToString() const override {
             std::stringstream ss;
-            ss << "WindowResizedEvent {Width(" << _width << ") Height(" << _height << ")";
+            ss << "WindowResizedEvent {Width(" << m_Width << ") Height(" << m_Height << ")";
             return ss.str();
         }
 
     private:
-        uint32_t _width, _height;
+        uint32_t m_Width, m_Height;
     };
 
     class WindowClosedEvent : public Event {

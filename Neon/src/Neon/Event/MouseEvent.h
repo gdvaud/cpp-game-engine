@@ -7,19 +7,19 @@ namespace Neon {
     class MouseMovedEvent : public Event {
     public:
         MouseMovedEvent(float x, float y)
-            : _x(x), _y(y) {}
+            : m_X(x), m_Y(y) {}
 
         inline float GetX() const {
-            return _x;
+            return m_X;
         }
 
         inline float GetY() const {
-            return _y;
+            return m_Y;
         }
 
         std::string ToString() const override {
             std::stringstream ss;
-            ss << "MouseMovedEvent: (" << _x << ", " << _y << ")";
+            ss << "MouseMovedEvent: (" << m_X << ", " << m_Y << ")";
             return ss.str();
         }
 
@@ -27,25 +27,25 @@ namespace Neon {
         EVENT_TYPE_DEF(MouseMoved);
 
     private:
-        float _x, _y;
+        float m_X, m_Y;
     };
 
     class MouseScrolledEvent : public Event {
     public:
         MouseScrolledEvent(float xOffset, float yOffset)
-            : _xOffset(xOffset), _yOffset(yOffset) {}
+            : m_XOffset(xOffset), m_YOffset(yOffset) {}
 
         inline float GetXOffset() const {
-            return _xOffset;
+            return m_XOffset;
         }
 
         inline float GetYOffset() const {
-            return _yOffset;
+            return m_YOffset;
         }
 
         std::string ToString() const override {
             std::stringstream ss;
-            ss << "MouseScrolledEvent: (" << _xOffset << ", " << _yOffset << ")";
+            ss << "MouseScrolledEvent: (" << m_XOffset << ", " << m_YOffset << ")";
             return ss.str();
         }
 
@@ -53,19 +53,19 @@ namespace Neon {
         EVENT_TYPE_DEF(MouseScrolled);
 
     private:
-        float _xOffset, _yOffset;
+        float m_XOffset, m_YOffset;
     };
 
     class MouseButtonEvent : public Event {
     public:
         inline int GetButtonCode() const {
-            return _buttonCode;
+            return m_ButtonCode;
         }
 
     protected:
-        MouseButtonEvent(int buttonCode) : _buttonCode(buttonCode) {}
+        MouseButtonEvent(int buttonCode) : m_ButtonCode(buttonCode) {}
 
-        int _buttonCode;
+        int m_ButtonCode;
     };
 
     class MouseButtonPressedEvent : public MouseButtonEvent {
@@ -74,7 +74,7 @@ namespace Neon {
 
         std::string ToString() const override {
             std::stringstream ss;
-            ss << "MouseButtonPressedEvent: " << _buttonCode;
+            ss << "MouseButtonPressedEvent: " << m_ButtonCode;
             return ss.str();
         }
 
@@ -88,7 +88,7 @@ namespace Neon {
 
         std::string ToString() const override {
             std::stringstream ss;
-            ss << "MouseButtonReleasedEvent: " << _buttonCode;
+            ss << "MouseButtonReleasedEvent: " << m_ButtonCode;
             return ss.str();
         }
 

@@ -1,39 +1,39 @@
 #include "Application.h"
 
 namespace Neon {
-    Application* Application::_instance = nullptr;
+    Application* Application::s_Instance = nullptr;
 
     Application::Application() {
-        NEO_CORE_ASSERT(!_instance, "Application already exists");
-        _instance = this;
+        NEO_CORE_ASSERT(!s_Instance, "Application already exists");
+        s_Instance = this;
 
-        _window = Window::Create();
-        _window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+        m_Window = Window::Create();
+        m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
-        _layerStack = LayerStack();
+        m_LayerStack = LayerStack();
 
-        _imGuiLayer = new ImGuiLayer();
-        PushOverlay(_imGuiLayer);
+        m_ImGuiLayer = new ImGuiLayer();
+        PushOverlay(m_ImGuiLayer);
     }
 
     Application::~Application() {
     }
 
     void Application::Run() {
-        while (_running) {
-            auto time = (float) glfwGetTime();
-            TimeStep timeStep = time - _lastFrameTime;
-            _lastFrameTime = time;
+        while (m_Running) {
+            auto time = (float)glfwGetTime();
+            TimeStep timeStep = time - m_LastFrameTime;
+            m_LastFrameTime = time;
 
-            for (auto layer : _layerStack)
+            for (auto layer : m_LayerStack)
                 layer->OnUpdate(timeStep);
 
-            _imGuiLayer->Begin();
-            for (auto layer : _layerStack)
+            m_ImGuiLayer->Begin();
+            for (auto layer : m_LayerStack)
                 layer->OnImGuiRender();
-            _imGuiLayer->End();
+            m_ImGuiLayer->End();
 
-            _window->OnUpdate();
+            m_Window->OnUpdate();
         }
     }
 
@@ -41,7 +41,7 @@ namespace Neon {
         EventDispatcher dispatcher(event);
         dispatcher.Dispatch<WindowClosedEvent>(BIND_EVENT_FN(Application::OnWindowClosed));
 
-        for (auto it = _layerStack.end(); it != _layerStack.begin();) {
+        for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {
             (*--it)->OnEvent(event);
             if (event.Handled)
                 break;
@@ -49,16 +49,16 @@ namespace Neon {
     }
 
     void Application::PushLayer(Layer* layer) {
-        _layerStack.PushLayer(layer);
+        m_LayerStack.PushLayer(layer);
     }
 
     void Application::PushOverlay(Layer* layer) {
-        _layerStack.PushOverlay(layer);
+        m_LayerStack.PushOverlay(layer);
     }
 
     // == Private ========
     bool Application::OnWindowClosed(WindowClosedEvent& event) {
-        _running = false;
+        m_Running = false;
         return true;
     }
 }  // namespace Neon

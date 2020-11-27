@@ -1,5 +1,5 @@
 #include "RendererAPI.h"
 
 namespace Neon {
-    RendererAPI::API RendererAPI::_api = RendererAPI::API::OpenGL;
+    RendererAPI::API RendererAPI::m_Api = RendererAPI::API::OpenGL;
 }

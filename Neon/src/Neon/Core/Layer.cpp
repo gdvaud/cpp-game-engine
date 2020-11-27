@@ -2,7 +2,7 @@
 
 namespace Neon {
     Layer::Layer(const std::string& name)
-        : _debugName(name) {}
+        : m_DebugName(name) {}
 
     Layer::~Layer() {}
 }  // namespace Neon

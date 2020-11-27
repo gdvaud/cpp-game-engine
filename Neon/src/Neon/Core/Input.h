@@ -5,16 +5,16 @@
 namespace Neon {
     class Input {
     public:
-        inline static bool IsKeyPressed(int keyCode) { return _instance->IsKeyPressed_Impl(keyCode); }
+        inline static bool IsKeyPressed(int keyCode) { return m_Instance->IsKeyPressed_Impl(keyCode); }
         inline static bool IsMouseButtonPressed(int buttonCode) {
-            return _instance->IsMouseButtonPressed_Impl(buttonCode);
+            return m_Instance->IsMouseButtonPressed_Impl(buttonCode);
         }
 
         inline static std::pair<float, float> GetMousePosition() {
-            return _instance->GetMousePosition_Impl();
+            return m_Instance->GetMousePosition_Impl();
         }
-        inline static float GetMouseX() { return _instance->GetMouseX_Impl(); }
-        inline static float GetMouseY() { return _instance->GetMouseY_Impl(); }
+        inline static float GetMouseX() { return m_Instance->GetMouseX_Impl(); }
+        inline static float GetMouseY() { return m_Instance->GetMouseY_Impl(); }
 
     protected:
         virtual bool IsKeyPressed_Impl(int keyCode) = 0;
@@ -25,6 +25,6 @@ namespace Neon {
         virtual float GetMouseY_Impl() = 0;
 
     private:
-        static Input* _instance;
+        static Input* m_Instance;
     };
 }  // namespace Neon

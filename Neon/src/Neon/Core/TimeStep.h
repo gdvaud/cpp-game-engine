@@ -4,14 +4,14 @@ namespace Neon {
     class TimeStep {
     public:
         TimeStep(float time = 0.0f)
-            : _time(time) {}
+            : m_Time(time) {}
 
-        operator float() const { return _time; }
+        operator float() const { return m_Time; }
 
-        float GetSeconds() const { return _time; }
-        float GetMilliseconds() const { return _time * 1000.0f; }
+        float GetSeconds() const { return m_Time; }
+        float GetMilliseconds() const { return m_Time * 1000.0f; }
 
     private:
-        float _time;
+        float m_Time;
     };
 }  // namespace Neon

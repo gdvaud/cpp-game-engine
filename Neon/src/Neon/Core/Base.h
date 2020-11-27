@@ -13,6 +13,7 @@ namespace Neon {
     constexpr Ref<T> CreateRef(Args&&... args) {
         return std::make_shared<T>(std::forward<Args>(args)...);
     }
+    
     // Scope type definition
     template <typename T>
     using Scope = std::unique_ptr<T>;

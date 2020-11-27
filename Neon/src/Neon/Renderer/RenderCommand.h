@@ -8,17 +8,17 @@ namespace Neon {
     class RenderCommand {
     public:
         inline static void SetClearColor(const glm::vec4& color) {
-            _rendererAPI->SetClearColor(color);
+            m_RendererApi->SetClearColor(color);
         }
         inline static void Clear() {
-            _rendererAPI->Clear();
+            m_RendererApi->Clear();
         }
 
         inline static void DrawIndexed(const Ref<VertexArray> vertexArray) {
-            _rendererAPI->DrawIndexed(vertexArray);
+            m_RendererApi->DrawIndexed(vertexArray);
         }
 
     private:
-        static RendererAPI* _rendererAPI;
+        static RendererAPI* m_RendererApi;
     };
 }  // namespace Neon

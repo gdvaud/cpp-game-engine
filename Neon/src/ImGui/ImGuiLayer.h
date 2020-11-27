@@ -21,6 +21,6 @@ namespace Neon {
         void End();
 
     private:
-        float _time = 0.0f;
+        float m_Time = 0.0f;
     };
 }  // namespace Neon

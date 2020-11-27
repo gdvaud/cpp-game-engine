@@ -3,44 +3,44 @@
 namespace Neon {
 
     LayerStack::LayerStack() {
-        _layerInsertIndex = 0;
+        m_LayerInsertIndex = 0;
     }
 
     LayerStack::~LayerStack() {
-        for (Layer* layer : _layers) {
+        for (Layer* layer : m_Layers) {
             delete layer;
         }
-        _layers.clear();
+        m_Layers.clear();
     }
 
     void LayerStack::PushLayer(Layer* layer) {
         if (layer != nullptr) {
-            _layers.emplace(_layers.begin() + _layerInsertIndex, layer);
-            _layerInsertIndex++;
+            m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);
+            m_LayerInsertIndex++;
             layer->OnAttach();
         }
     }
 
     void LayerStack::PopLayer(Layer* layer) {
-        auto it = std::find(begin(), begin() + _layerInsertIndex, layer);
+        auto it = std::find(begin(), begin() + m_LayerInsertIndex, layer);
         if (it != end()) {
             layer->OnDetach();
 
-            _layers.erase(it);
-            _layerInsertIndex--;
+            m_Layers.erase(it);
+            m_LayerInsertIndex--;
         }
     }
 
     void LayerStack::PushOverlay(Layer* layer) {
-        _layers.emplace_back(layer);
+        m_Layers.emplace_back(layer);
         layer->OnAttach();
     }
 
     void LayerStack::PopOverlay(Layer* layer) {
-        auto it = std::find(begin() + _layerInsertIndex, end(), layer);
+        auto it = std::find(begin() + m_LayerInsertIndex, end(), layer);
         if (it != end()) {
             layer->OnDetach();
-            _layers.erase(it);
+            m_Layers.erase(it);
         }
     }
 }  // namespace Neon

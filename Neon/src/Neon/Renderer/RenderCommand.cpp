@@ -2,5 +2,5 @@
 
 #include "Platform/OpenGL/OpenGLRendererAPI.h"
 namespace Neon {
-    RendererAPI* RenderCommand::_rendererAPI = new OpenGLRendererAPI();
+    RendererAPI* RenderCommand::m_RendererApi = new OpenGLRendererAPI();
 }

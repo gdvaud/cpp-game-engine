@@ -46,8 +46,8 @@ namespace Neon {
         }
 
         // ===== LINKING =====
-        _rendererId = glCreateProgram();
-        GLuint program = _rendererId;
+        m_RendererId = glCreateProgram();
+        GLuint program = m_RendererId;
 
         glAttachShader(program, vertexShader);
         glAttachShader(program, fragmentShader);
@@ -87,11 +87,11 @@ namespace Neon {
     }
 
     OpenGLShader::~OpenGLShader() {
-        glDeleteProgram(_rendererId);
+        glDeleteProgram(m_RendererId);
     }
 
     void OpenGLShader::Bind() const {
-        glUseProgram(_rendererId);
+        glUseProgram(m_RendererId);
     }
 
     void OpenGLShader::Unbind() const {
@@ -99,7 +99,7 @@ namespace Neon {
     }
 
     void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix) {
-        GLint location = glad_glGetUniformLocation(_rendererId, name.c_str());
+        GLint location = glad_glGetUniformLocation(m_RendererId, name.c_str());
         glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
     }
 }  // namespace Neon

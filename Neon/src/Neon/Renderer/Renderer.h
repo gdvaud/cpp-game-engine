@@ -21,6 +21,6 @@ namespace Neon {
         };
 
     private:
-        static SceneData* _sceneData;
+        static SceneData* m_SceneData;
     };
 }  // namespace Neon

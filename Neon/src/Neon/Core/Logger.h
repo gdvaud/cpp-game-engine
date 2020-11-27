@@ -10,12 +10,12 @@ namespace Neon {
     public:
         static void Init();
 
-        inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return _coreLogger; }
-        inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return _clientLogger; }
+        inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return m_CoreLogger; }
+        inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return m_ClientLogger; }
 
     private:
-        static std::shared_ptr<spdlog::logger> _coreLogger;
-        static std::shared_ptr<spdlog::logger> _clientLogger;
+        static std::shared_ptr<spdlog::logger> m_CoreLogger;
+        static std::shared_ptr<spdlog::logger> m_ClientLogger;
     };
 }  // namespace Neon
 

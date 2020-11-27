@@ -13,7 +13,7 @@ namespace Neon {
         };
 
     public:
-        inline static API GetAPI() { return _api; }
+        inline static API GetAPI() { return m_Api; }
 
     public:
         virtual void SetClearColor(const glm::vec4& color) = 0;
@@ -22,6 +22,6 @@ namespace Neon {
         virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;
 
     private:
-        static API _api;
+        static API m_Api;
     };
 }  // namespace Neon

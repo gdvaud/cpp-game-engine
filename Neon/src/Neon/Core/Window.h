@@ -1,7 +1,7 @@
 #pragma once
 
-#include <string>
 #include <functional>
+#include <string>
 
 #include "Neon/Event/Event.h"
 
@@ -11,17 +11,17 @@ namespace Neon {
         uint16_t Width;
         uint16_t Height;
 
-        WindowSettings(const std::string& _title = "Hazel Engine",
-                       uint16_t _width = 1280,
-                       uint16_t _height = 720)
-            : Title(_title), Width(_width), Height(_height) {}
+        WindowSettings(const std::string& title = "Hazel Engine",
+                       uint16_t width = 1280,
+                       uint16_t height = 720)
+            : Title(title), Width(width), Height(height) {}
     };
 
     class Window {
     public:
         using EventCallbackFn = std::function<void(Event&)>;
 
-        static Scope<Window> Create(const WindowSettings& settings = WindowSettings());
+        static Ref<Window> Create(const WindowSettings& settings = WindowSettings());
 
         virtual ~Window() {}
         virtual void OnUpdate() = 0;

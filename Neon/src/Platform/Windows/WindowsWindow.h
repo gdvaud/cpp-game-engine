@@ -13,7 +13,7 @@ namespace Neon {
         void OnUpdate() override;
 
         // Window attributes
-        virtual void* GetNativeWindow() const { return _window; }
+        virtual void* GetNativeWindow() const { return m_Window; }
         inline uint16_t GetWidth() const override;
         inline uint16_t GetHeight() const override;
         void SetEventCallback(const EventCallbackFn& callback) override;
@@ -26,8 +26,8 @@ namespace Neon {
         virtual void Shutdown();
 
     private:
-        GLFWwindow* _window;
-        GraphicContext* _context;
+        GLFWwindow* m_Window;
+        GraphicContext* m_Context;
 
         struct WindowData {
             std::string Title;
@@ -36,6 +36,6 @@ namespace Neon {
 
             EventCallbackFn EventCallback;
         };
-        WindowData _data;
+        WindowData m_Data;
     };
 }  // namespace Neon

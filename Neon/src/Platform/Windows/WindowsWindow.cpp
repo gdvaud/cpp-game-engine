@@ -8,8 +8,8 @@
 namespace Neon {
     static bool GLFWInitialized = false;
 
-    Scope<Window> Window::Create(const WindowSettings& settings) {
-        return CreateScope<Window>(settings);
+    Ref<Window> Window::Create(const WindowSettings& settings) {
+        return CreateRef<WindowsWindow>(settings);
     }
 
     WindowsWindow::WindowsWindow(const WindowSettings& settings) {
@@ -25,9 +25,9 @@ namespace Neon {
     }
 
     void WindowsWindow::Init(const WindowSettings& settings) {
-        _data.Title = settings.Title;
-        _data.Width = settings.Width;
-        _data.Height = settings.Height;
+        m_Data.Title = settings.Title;
+        m_Data.Width = settings.Width;
+        m_Data.Height = settings.Height;
 
         NEO_CORE_INFO("Creating window \"{0}\" with Height={1} and Width={2})",
                       settings.Title, settings.Width, settings.Height);
@@ -40,12 +40,12 @@ namespace Neon {
             GLFWInitialized = true;
         }
 
-        _window = glfwCreateWindow(_data.Width, _data.Height, _data.Title.c_str(), nullptr, nullptr);
+        m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 
-        _context = new OpenGLContext(_window);
-        _context->Init();
+        m_Context = new OpenGLContext(m_Window);
+        m_Context->Init();
 
-        glfwSetWindowUserPointer(_window, &_data);
+        glfwSetWindowUserPointer(m_Window, &m_Data);
 
         int gladStatus = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         NEO_CORE_ASSERT(gladStatus, "Could not init Glad")
@@ -57,19 +57,19 @@ namespace Neon {
 
     void WindowsWindow::InitEvents() {
         // Window
-        glfwSetWindowCloseCallback(_window, [](GLFWwindow* window) {
+        glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
             WindowClosedEvent event;
             data.EventCallback(event);
         });
-        glfwSetWindowSizeCallback(_window, [](GLFWwindow* window, int width, int height) {
+        glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
             WindowResizedEvent event(width, height);
             data.EventCallback(event);
         });
 
         // Key
-        glfwSetKeyCallback(_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+        glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
             switch (action) {
@@ -91,14 +91,14 @@ namespace Neon {
             }
         });
 
-        glfwSetCharCallback(_window, [](GLFWwindow* window, unsigned int keyCode) {
+        glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keyCode) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
             KeyTypedEvent event(keyCode);
             data.EventCallback(event);
         });
 
         // Mouse
-        glfwSetMouseButtonCallback(_window, [](GLFWwindow* window, int button, int action, int mods) {
+        glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
             switch (action) {
@@ -114,12 +114,12 @@ namespace Neon {
                 }
             }
         });
-        glfwSetCursorPosCallback(_window, [](GLFWwindow* window, double x, double y) {
+        glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double x, double y) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
             MouseMovedEvent event((float)x, (float)y);
             data.EventCallback(event);
         });
-        glfwSetScrollCallback(_window, [](GLFWwindow* window, double xOffset, double yOffset) {
+        glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
             MouseScrolledEvent event((float)xOffset, (float)yOffset);
             data.EventCallback(event);
@@ -127,25 +127,25 @@ namespace Neon {
     }
 
     void WindowsWindow::Shutdown() {
-        glfwDestroyWindow(_window);
+        glfwDestroyWindow(m_Window);
     }
 
     void WindowsWindow::OnUpdate() {
         glfwPollEvents();
-        _context->SwapBuffers();
+        m_Context->SwapBuffers();
     }
 
     // == Accessors ==================
     uint16_t WindowsWindow::GetWidth() const {
-        return _data.Width;
+        return m_Data.Width;
     }
 
     uint16_t WindowsWindow::GetHeight() const {
-        return _data.Height;
+        return m_Data.Height;
     }
 
     void WindowsWindow::SetEventCallback(const EventCallbackFn& callback) {
-        _data.EventCallback = callback;
+        m_Data.EventCallback = callback;
     }
 
     void WindowsWindow::SetVSync(bool enabled) {
@@ -155,11 +155,11 @@ namespace Neon {
             glfwSwapInterval(0);
         }
 
-        _data.VSync = enabled;
+        m_Data.VSync = enabled;
     }
 
     bool WindowsWindow::IsVSync() {
-        return _data.VSync;
+        return m_Data.VSync;
     }
     // ===============================
 }  // namespace Neon

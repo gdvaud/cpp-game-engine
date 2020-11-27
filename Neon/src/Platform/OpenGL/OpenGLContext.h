@@ -13,6 +13,6 @@ namespace Neon {
         void SwapBuffers() override;
 
     private:
-        GLFWwindow* _windowHandle;
+        GLFWwindow* m_WindowHandle;
     };
 }  // namespace Neon

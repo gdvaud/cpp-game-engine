@@ -11,12 +11,12 @@ namespace Neon {
         void Bind() const override;
         void Unbind() const override;
 
-        virtual const BufferLayout& GetLayout() const override { return _layout; };
-        virtual void SetLayout(const BufferLayout& layout) { _layout = layout; };
+        virtual const BufferLayout& GetLayout() const override { return m_Layout; };
+        virtual void SetLayout(const BufferLayout& layout) { m_Layout = layout; };
 
     private:
-        uint32_t _rendererId;
-        BufferLayout _layout;
+        uint32_t m_RendererId;
+        BufferLayout m_Layout;
     };
 
     class OpenGLIndexBuffer : public IndexBuffer {
@@ -30,7 +30,7 @@ namespace Neon {
         uint32_t GetCount() const override;
 
     private:
-        uint32_t _rendererId;
-        uint32_t _count;
+        uint32_t m_RendererId;
+        uint32_t m_Count;
     };
 }  // namespace Neon

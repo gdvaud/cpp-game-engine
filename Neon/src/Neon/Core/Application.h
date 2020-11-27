@@ -20,24 +20,24 @@ namespace Neon {
         void PushLayer(Layer* layer);
         void PushOverlay(Layer* layer);
 
-        inline Window& GetWindow() { return *_window; }
+        inline Ref<Window> GetWindow() { return m_Window; }
 
     public:
-        static inline Application& Get() { return *_instance; }
+        static inline Application& Get() { return *s_Instance; }
 
     private:
         bool OnWindowClosed(WindowClosedEvent& event);
 
-        bool _running = true;
+    private:
+        bool m_Running = true;
+        float m_LastFrameTime = 0.0f;
 
-        Scope<Window> _window;
-        ImGuiLayer* _imGuiLayer;
-        LayerStack _layerStack;
-
-        float _lastFrameTime = 0.0f;
+        Ref<Window> m_Window;
+        ImGuiLayer* m_ImGuiLayer;
+        LayerStack m_LayerStack;
 
     private:
-        static Application* _instance;
+        static Application* s_Instance;
     };
 
     Application* CreateApplication();

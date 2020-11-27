@@ -3,20 +3,20 @@
 #include "Neon/Core/Application.h"
 
 namespace Neon {
-    Input* Input::_instance = new WindowsInput();
+    Input* Input::m_Instance = new WindowsInput();
 
     bool WindowsInput::IsKeyPressed_Impl(int keyCode) {
-        auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+        auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow()->GetNativeWindow());
         auto state = glfwGetKey(window, keyCode);
         return state == GLFW_PRESS || state == GLFW_REPEAT;
     }
     bool WindowsInput::IsMouseButtonPressed_Impl(int keyCode) {
-        auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+        auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow()->GetNativeWindow());
         auto state = glfwGetMouseButton(window, keyCode);
         return state == GLFW_PRESS;
     }
     std::pair<float, float> WindowsInput::GetMousePosition_Impl() {
-        auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+        auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow()->GetNativeWindow());
         double xpos, ypos;
         glfwGetCursorPos(window, &xpos, &ypos);
 

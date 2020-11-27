@@ -7,31 +7,31 @@ namespace Neon {
     public:
         OrthographicCamera(float left, float right, float bottom, float top);
 
-        const glm::vec3& GetPosition() const { return _position; }
+        const glm::vec3& GetPosition() const { return m_Position; }
         void SetPosition(const glm::vec3& position) {
-            _position = position;
+            m_Position = position;
             RecalculateViewMatrix();
         }
 
-        float GetRotation() const { return _rotation; }
+        float GetRotation() const { return m_Rotation; }
         void SetRotation(const float rotation) {
-            _rotation = rotation;
+            m_Rotation = rotation;
             RecalculateViewMatrix();
         }
 
-        const glm::mat4& GetProjectionMatrix() const { return _projectionMatrix; }
-        const glm::mat4& GetViewMatrix() const { return _viewMatrix; }
-        const glm::mat4& GetViewProjectionMatrix() const { return _viewProjectionMatrix; }
+        const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
+        const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
+        const glm::mat4& GetViewProjectionMatrix() const { return m_ViewProjectionMatrix; }
 
     private:
         void RecalculateViewMatrix();
 
     private:
-        glm::mat4 _projectionMatrix;
-        glm::mat4 _viewMatrix;
-        glm::mat4 _viewProjectionMatrix;
+        glm::mat4 m_ProjectionMatrix;
+        glm::mat4 m_ViewMatrix;
+        glm::mat4 m_ViewProjectionMatrix;
 
-        glm::vec3 _position;
-        float _rotation;
+        glm::vec3 m_Position;
+        float m_Rotation;
     };
 }  // namespace Neon

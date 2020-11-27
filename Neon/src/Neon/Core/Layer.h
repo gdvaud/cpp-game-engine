@@ -17,9 +17,9 @@ namespace Neon {
         virtual void OnEvent(Event& event) {}
         virtual void OnDetach() {}
 
-        inline const std::string& GetName() const { return _debugName; }
+        inline const std::string& GetName() const { return m_DebugName; }
 
     protected:
-        std::string _debugName;
+        std::string m_DebugName;
     };
 }  // namespace Neon

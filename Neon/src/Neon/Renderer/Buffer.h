@@ -78,33 +78,33 @@ namespace Neon {
         BufferLayout() {}
 
         BufferLayout(const std::initializer_list<BufferElement>& elements)
-            : _elements(elements), _stride(0) {
+            : m_Elements(elements), m_Stride(0) {
             CalculateOffsetAndStride();
         }
 
-        const std::vector<BufferElement>& GetElements() const { return _elements; }
-        uint32_t GetStride() const { return _stride; }
+        const std::vector<BufferElement>& GetElements() const { return m_Elements; }
+        uint32_t GetStride() const { return m_Stride; }
 
-        std::vector<BufferElement>::iterator begin() { return _elements.begin(); }
-        std::vector<BufferElement>::iterator end() { return _elements.end(); }
-        std::vector<BufferElement>::const_iterator begin() const { return _elements.begin(); }
-        std::vector<BufferElement>::const_iterator end() const { return _elements.end(); }
+        std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
+        std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
+        std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
+        std::vector<BufferElement>::const_iterator end() const { return m_Elements.end(); }
 
     private:
         void CalculateOffsetAndStride() {
             uint64_t offset = 0;
 
-            for (auto& element : _elements) {
+            for (auto& element : m_Elements) {
                 element.Offset = offset;
                 offset += element.Size;
             }
 
-            _stride = offset;
+            m_Stride = offset;
         }
 
     private:
-        std::vector<BufferElement> _elements;
-        uint64_t _stride;
+        std::vector<BufferElement> m_Elements;
+        uint64_t m_Stride;
     };
 
     class VertexBuffer {

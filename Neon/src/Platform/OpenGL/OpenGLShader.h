@@ -17,6 +17,6 @@ namespace Neon {
         void HandleCompileError(uint32_t shader);
 
     private:
-        uint32_t _rendererId;
+        uint32_t m_RendererId;
     };
 }  // namespace Neon

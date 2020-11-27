@@ -2,16 +2,16 @@
 
 namespace Neon {
     OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
-        : _windowHandle(windowHandle) {
+        : m_WindowHandle(windowHandle) {
         NEO_CORE_ASSERT(windowHandle, "Window handle is null");
     }
     void OpenGLContext::Init() {
-        glfwMakeContextCurrent(_windowHandle);
+        glfwMakeContextCurrent(m_WindowHandle);
         int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         NEO_CORE_ASSERT(status, "Failed to initialize Glad");
     }
 
     void OpenGLContext::SwapBuffers() {
-        glfwSwapBuffers(_windowHandle);
+        glfwSwapBuffers(m_WindowHandle);
     }
 }  // namespace Neon

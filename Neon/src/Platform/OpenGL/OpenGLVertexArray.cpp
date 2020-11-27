@@ -24,19 +24,19 @@ namespace Neon {
     }
 
     OpenGLVertexArray::OpenGLVertexArray() {
-        glCreateVertexArrays(1, &_rendererID);
+        glCreateVertexArrays(1, &m_RendererId);
     }
     OpenGLVertexArray::~OpenGLVertexArray() {
-        glDeleteVertexArrays(1, &_rendererID);
+        glDeleteVertexArrays(1, &m_RendererId);
     }
 
-    void OpenGLVertexArray::Bind() const { glBindVertexArray(_rendererID); }
+    void OpenGLVertexArray::Bind() const { glBindVertexArray(m_RendererId); }
     void OpenGLVertexArray::Unbind() const { glBindVertexArray(0); }
 
     void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) {
         NEO_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex buffer has no layout set");
 
-        glBindVertexArray(_rendererID);
+        glBindVertexArray(m_RendererId);
         vertexBuffer->Bind();
 
         uint32_t index = 0;
@@ -51,14 +51,14 @@ namespace Neon {
             index++;
         }
 
-        _vertexBuffers.push_back(vertexBuffer);
+        m_VertexBuffers.push_back(vertexBuffer);
     }
     void OpenGLVertexArray::SetIndexBuffer(
         const Ref<IndexBuffer>& indexBuffer) {
-        glBindVertexArray(_rendererID);
+        glBindVertexArray(m_RendererId);
 
         indexBuffer->Bind();
 
-        _indexBuffer = indexBuffer;
+        m_IndexBuffer = indexBuffer;
     }
 }  // namespace Neon

@@ -47,18 +47,18 @@ namespace Neon {
 
     public:
         EventDispatcher(Event& event)
-            : _event(event) {}
+            : m_Event(event) {}
 
         template <typename T>
         bool Dispatch(EventCallback<T> callback) {
-            if (_event.GetEventType() == T::GetStaticEventType()) {
-                _event.Handled = callback(*(T*)&_event);
+            if (m_Event.GetEventType() == T::GetStaticEventType()) {
+                m_Event.Handled = callback(*(T*)&m_Event);
             }
 
-            return _event.Handled;
+            return m_Event.Handled;
         }
 
     private:
-        Event& _event;
+        Event& m_Event;
     };
 }  // namespace Neon
