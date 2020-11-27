@@ -109,6 +109,8 @@ namespace Neon {
 
     class VertexBuffer {
     public:
+        static Ref<VertexBuffer> Create(float* vertices, uint32_t count);
+
         virtual ~VertexBuffer() {}
 
         virtual void Bind() const = 0;
@@ -116,19 +118,17 @@ namespace Neon {
 
         virtual const BufferLayout& GetLayout() const = 0;
         virtual void SetLayout(const BufferLayout& layout) = 0;
-
-        static Ref<VertexBuffer> Create(float* vertices, uint32_t count);
     };
 
     class IndexBuffer {
     public:
+        static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t count);
+
         virtual ~IndexBuffer() {}
 
         virtual void Bind() const = 0;
         virtual void Unbind() const = 0;
 
         virtual uint32_t GetCount() const = 0;
-
-        static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t count);
     };
 }  // namespace Neon

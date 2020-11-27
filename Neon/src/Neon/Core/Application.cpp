@@ -7,7 +7,7 @@ namespace Neon {
         NEO_CORE_ASSERT(!_instance, "Application already exists");
         _instance = this;
 
-        _window = std::unique_ptr<Window>(Window::Create());
+        _window = Window::Create();
         _window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
         _layerStack = LayerStack();

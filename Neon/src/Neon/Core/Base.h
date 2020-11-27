@@ -13,6 +13,14 @@ namespace Neon {
     constexpr Ref<T> CreateRef(Args&&... args) {
         return std::make_shared<T>(std::forward<Args>(args)...);
     }
+    // Scope type definition
+    template <typename T>
+    using Scope = std::unique_ptr<T>;
+
+    template <typename T, typename... Args>
+    constexpr Scope<T> CreateScope(Args&&... args) {
+        return std::make_unique<T>(std::forward<Args>(args)...);
+    }
 }  // namespace Neon
 
 #include "Neon/Core/Assert.h"

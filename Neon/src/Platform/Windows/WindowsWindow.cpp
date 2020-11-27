@@ -8,8 +8,8 @@
 namespace Neon {
     static bool GLFWInitialized = false;
 
-    Window* Window::Create(const WindowSettings& settings) {
-        return new WindowsWindow(settings);
+    Scope<Window> Window::Create(const WindowSettings& settings) {
+        return CreateScope<Window>(settings);
     }
 
     WindowsWindow::WindowsWindow(const WindowSettings& settings) {

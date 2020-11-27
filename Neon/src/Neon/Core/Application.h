@@ -30,7 +30,7 @@ namespace Neon {
 
         bool _running = true;
 
-        std::unique_ptr<Window> _window;
+        Scope<Window> _window;
         ImGuiLayer* _imGuiLayer;
         LayerStack _layerStack;
 

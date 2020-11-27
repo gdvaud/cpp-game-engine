@@ -6,16 +6,16 @@ namespace Neon {
     class OpenGLVertexArray : public VertexArray {
     public:
         OpenGLVertexArray();
-        virtual ~OpenGLVertexArray();
+        ~OpenGLVertexArray() override;
 
-        virtual void Bind() const override;
-        virtual void Unbind() const override;
+        void Bind() const override;
+        void Unbind() const override;
 
-        virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
-        virtual void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
+        void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
+        void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
 
-        virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const { return _vertexBuffers; }
-        virtual const Ref<IndexBuffer>& GetIndexBuffer() const { return _indexBuffer; }
+        const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const override { return _vertexBuffers; }
+        const Ref<IndexBuffer>& GetIndexBuffer() const override { return _indexBuffer; }
 
     private:
         uint32_t _rendererID;

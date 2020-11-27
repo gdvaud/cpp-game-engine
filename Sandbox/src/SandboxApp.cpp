@@ -111,7 +111,7 @@ void SimpleLayer::InitShaders() {
                     color = v_Color;
                 }
             )";
-        _vertexColorShader = std::make_unique<Neon::Shader>(vertexStr, fragmentStr);
+        _vertexColorShader = Neon::Shader::Create(vertexStr, fragmentStr);
     }
     //////////////////////////
 
@@ -144,7 +144,7 @@ void SimpleLayer::InitShaders() {
                     color = vec4(0, 0, 1, 1);
                 }
             )";
-        _blueColorShader = std::make_unique<Neon::Shader>(vertexStr, fragmentStr);
+        _blueColorShader = Neon::Shader::Create(vertexStr, fragmentStr);
     }
     //////////////////////////
 }

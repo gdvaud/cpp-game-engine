@@ -21,7 +21,7 @@ namespace Neon {
     public:
         using EventCallbackFn = std::function<void(Event&)>;
 
-        static Window* Create(const WindowSettings& settings = WindowSettings());
+        static Scope<Window> Create(const WindowSettings& settings = WindowSettings());
 
         virtual ~Window() {}
         virtual void OnUpdate() = 0;

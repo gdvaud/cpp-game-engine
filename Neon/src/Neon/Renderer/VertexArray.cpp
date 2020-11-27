@@ -4,7 +4,6 @@
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 
 namespace Neon {
-
     Ref<VertexArray> VertexArray::Create() {
         switch (Renderer::GetAPI()) {
             case RendererAPI::API::OpenGL: return CreateRef<OpenGLVertexArray>();
