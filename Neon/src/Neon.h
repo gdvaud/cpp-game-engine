@@ -31,7 +31,3 @@
 #include "Neon/Renderer/Renderer.h"
 #include "Neon/Renderer/Shader.h"
 #include "Neon/Renderer/VertexArray.h"
-
-// == EntryPoint ==
-#include "Neon/Core/EntryPoint.h"
-// ================

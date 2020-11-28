@@ -4,7 +4,7 @@
 
     #define GLFW_INCLUDE_NONE
 
-    #include <Windows.h>
+//    #include <Windows.h>
     #include <glad/glad.h>
     // GLFW
     #include <GLFW/glfw3.h>

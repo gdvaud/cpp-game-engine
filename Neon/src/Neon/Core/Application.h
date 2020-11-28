@@ -17,8 +17,8 @@ namespace Neon {
         void Run();
         void OnEvent(Event& event);
 
-        void PushLayer(Layer* layer);
-        void PushOverlay(Layer* layer);
+        void PushLayer(const Ref<Layer>& layer);
+        void PushOverlay(const Ref<Layer>& layer);
 
         inline Ref<Window> GetWindow() { return m_Window; }
 
@@ -33,8 +33,8 @@ namespace Neon {
         float m_LastFrameTime = 0.0f;
 
         Ref<Window> m_Window;
-        ImGuiLayer* m_ImGuiLayer;
-        LayerStack m_LayerStack;
+        Ref<ImGuiLayer> m_ImGuiLayer;
+        Ref<LayerStack> m_LayerStack;
 
     private:
         static Application* s_Instance;

@@ -3,7 +3,7 @@
 #include "Neon/Core/Application.h"
 
 namespace Neon {
-    Input* Input::m_Instance = new WindowsInput();
+    Scope<Input> Input::m_Instance = CreateScope<WindowsInput>();
 
     bool WindowsInput::IsKeyPressed_Impl(int keyCode) {
         auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow()->GetNativeWindow());

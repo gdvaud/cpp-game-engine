@@ -10,13 +10,14 @@ namespace Neon {
         m_Window = Window::Create();
         m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
-        m_LayerStack = LayerStack();
+        m_LayerStack = CreateRef<LayerStack>();
 
-        m_ImGuiLayer = new ImGuiLayer();
+        m_ImGuiLayer = CreateRef<ImGuiLayer>();
         PushOverlay(m_ImGuiLayer);
     }
 
     Application::~Application() {
+        s_Instance = nullptr;
     }
 
     void Application::Run() {
@@ -25,11 +26,11 @@ namespace Neon {
             TimeStep timeStep = time - m_LastFrameTime;
             m_LastFrameTime = time;
 
-            for (auto layer : m_LayerStack)
+            for (const auto& layer : *m_LayerStack)
                 layer->OnUpdate(timeStep);
 
             m_ImGuiLayer->Begin();
-            for (auto layer : m_LayerStack)
+            for (const auto& layer : *m_LayerStack)
                 layer->OnImGuiRender();
             m_ImGuiLayer->End();
 
@@ -41,19 +42,19 @@ namespace Neon {
         EventDispatcher dispatcher(event);
         dispatcher.Dispatch<WindowClosedEvent>(BIND_EVENT_FN(Application::OnWindowClosed));
 
-        for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {
+        for (auto it = m_LayerStack->end(); it != m_LayerStack->begin();) {
             (*--it)->OnEvent(event);
             if (event.Handled)
                 break;
         }
     }
 
-    void Application::PushLayer(Layer* layer) {
-        m_LayerStack.PushLayer(layer);
+    void Application::PushLayer(const Ref<Layer>& layer) {
+        m_LayerStack->PushLayer(layer);
     }
 
-    void Application::PushOverlay(Layer* layer) {
-        m_LayerStack.PushOverlay(layer);
+    void Application::PushOverlay(const Ref<Layer>& layer) {
+        m_LayerStack->PushOverlay(layer);
     }
 
     // == Private ========

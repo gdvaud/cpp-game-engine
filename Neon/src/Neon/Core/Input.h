@@ -25,6 +25,6 @@ namespace Neon {
         virtual float GetMouseY_Impl() = 0;
 
     private:
-        static Input* m_Instance;
+        static Scope<Input> m_Instance;
     };
 }  // namespace Neon

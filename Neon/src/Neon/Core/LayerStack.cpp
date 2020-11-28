@@ -7,13 +7,10 @@ namespace Neon {
     }
 
     LayerStack::~LayerStack() {
-        for (Layer* layer : m_Layers) {
-            delete layer;
-        }
         m_Layers.clear();
     }
 
-    void LayerStack::PushLayer(Layer* layer) {
+    void LayerStack::PushLayer(const Ref<Layer>& layer) {
         if (layer != nullptr) {
             m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);
             m_LayerInsertIndex++;
@@ -21,7 +18,7 @@ namespace Neon {
         }
     }
 
-    void LayerStack::PopLayer(Layer* layer) {
+    void LayerStack::PopLayer(const Ref<Layer>& layer) {
         auto it = std::find(begin(), begin() + m_LayerInsertIndex, layer);
         if (it != end()) {
             layer->OnDetach();
@@ -31,12 +28,12 @@ namespace Neon {
         }
     }
 
-    void LayerStack::PushOverlay(Layer* layer) {
+    void LayerStack::PushOverlay(const Ref<Layer>& layer) {
         m_Layers.emplace_back(layer);
         layer->OnAttach();
     }
 
-    void LayerStack::PopOverlay(Layer* layer) {
+    void LayerStack::PopOverlay(const Ref<Layer>& layer) {
         auto it = std::find(begin() + m_LayerInsertIndex, end(), layer);
         if (it != end()) {
             layer->OnDetach();

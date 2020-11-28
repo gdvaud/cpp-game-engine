@@ -1,0 +1,182 @@
+#include "SandboxLayer.h"
+
+#include <glm/gtc/matrix_transform.hpp>
+
+SandboxLayer::SandboxLayer()
+    : Layer("Simple"),
+      m_CameraPosition(0.0f) {
+    m_Camera = Neon::CreateRef<Neon::OrthographicCamera>(-1.6f, 1.6f, -0.9f, 0.9f);
+
+    InitModels();
+    InitShaders();
+}
+void SandboxLayer::InitModels() {
+    //////////////////////////
+    /// Triangle model
+    {
+        // === Model format
+        // clang-format off
+        float vertices[3 * 7] = {
+            -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+            0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+            0.0f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+        };
+        uint32_t indices[3] = {0, 1, 2};
+        // clang-format on
+        Neon::BufferLayout layout = {
+            {Neon::ShaderDataType::Float3, "a_Position"},
+            {Neon::ShaderDataType::Float4, "a_Color"},
+        };
+
+        // === Model storage
+        m_TriangleVertexArray = Neon::VertexArray::Create();
+
+        Neon::Ref<Neon::VertexBuffer> vertexBuffer = Neon::VertexBuffer::Create(vertices, sizeof(vertices) / sizeof(float));
+        vertexBuffer->SetLayout(layout);
+        m_TriangleVertexArray->AddVertexBuffer(vertexBuffer);
+
+        m_TriangleVertexArray->SetIndexBuffer(Neon::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+    }
+    //////////////////////////
+
+    //////////////////////////
+    /// Square model
+    {
+        // === Model format
+        // clang-format off
+        float vertices[3 * 4] = {
+            -0.5f, -0.5f, 0.0f,
+            0.5f, -0.5f, 0.0f,
+            0.5f, 0.5f, 0.0f,
+            -0.5f, 0.5f, 0.0f,
+        };
+        uint32_t indices[6] = {
+            0, 1, 2,
+            0, 2, 3,
+        };
+        // clang-format on
+        Neon::BufferLayout layout = {
+            {Neon::ShaderDataType::Float3, "a_Position"},
+        };
+
+        // === Shader
+
+        // === Model storage
+        m_SquareVertexArray = Neon::VertexArray::Create();
+
+        Neon::Ref<Neon::VertexBuffer> vertexBuffer = Neon::VertexBuffer::Create(vertices, sizeof(vertices) / sizeof(float));
+        vertexBuffer->SetLayout(layout);
+        m_SquareVertexArray->AddVertexBuffer(vertexBuffer);
+
+        m_SquareVertexArray->SetIndexBuffer(Neon::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+    }
+    //////////////////////////
+}
+void SandboxLayer::InitShaders() {
+    //////////////////////////
+    /// Vertex Color Shader
+    {
+        std::string vertexStr = R"(
+                #version 330 core
+
+                layout(location = 0) in vec3 a_Position;
+                layout(location = 1) in vec4 a_Color;
+
+                uniform mat4 u_ViewProjection;
+                uniform mat4 u_Transform;
+
+                out vec3 v_Position;
+                out vec4 v_Color;
+
+                void main() {
+                    v_Position = a_Position;
+                    v_Color = a_Color;
+                    gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+                }
+            )";
+        std::string fragmentStr = R"(
+                #version 330 core
+
+                layout(location = 0) out vec4 color;
+
+                in vec3 v_Position;
+                in vec4 v_Color;
+
+                void main() {
+                    color = v_Color;
+                }
+            )";
+        m_VertexColorShader = Neon::Shader::Create(vertexStr, fragmentStr);
+    }
+    //////////////////////////
+
+    //////////////////////////
+    /// Blue Color Shader
+    {
+        std::string vertexStr = R"(
+                #version 330 core
+
+                layout(location = 0) in vec3 a_Position;
+
+                uniform mat4 u_ViewProjection;
+                uniform mat4 u_Transform;
+
+                out vec3 v_Position;
+
+                void main() {
+                    v_Position = a_Position;
+                    gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+                }
+            )";
+        std::string fragmentStr = R"(
+                #version 330 core
+
+                layout(location = 0) out vec4 color;
+
+                in vec3 v_Position;
+
+                void main() {
+                    color = vec4(0, 0, 1, 1);
+                }
+            )";
+        m_BlueColorShader = Neon::Shader::Create(vertexStr, fragmentStr);
+    }
+    //////////////////////////
+}
+
+void SandboxLayer::OnUpdate(Neon::TimeStep timeStep) {
+    HandleMovement(timeStep);
+
+    Neon::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1});
+    Neon::RenderCommand::Clear();
+
+    m_Camera->SetPosition(m_CameraPosition);
+    m_Camera->SetRotation(m_CameraRotation);
+
+    Neon::Renderer::BeginScene(m_Camera);
+
+    Neon::Renderer::Submit(m_SquareVertexArray, m_BlueColorShader);
+    Neon::Renderer::Submit(m_TriangleVertexArray, m_VertexColorShader, glm::translate(glm::mat4(1.0f), {-0.5f, 0.f, 0.0f}));
+    Neon::Renderer::Submit(m_TriangleVertexArray, m_VertexColorShader, glm::translate(glm::mat4(1.0f), {0.5f, 0.0f, 0.0f}));
+
+    Neon::Renderer::EndScene();
+}
+void SandboxLayer::HandleMovement(Neon::TimeStep timeStep) {
+    if (Neon::Input::IsKeyPressed(NEO_KEY_A))
+        m_CameraPosition.x += m_CameraMoveSpeed * timeStep;
+    if (Neon::Input::IsKeyPressed(NEO_KEY_D))
+        m_CameraPosition.x -= m_CameraMoveSpeed * timeStep;
+
+    if (Neon::Input::IsKeyPressed(NEO_KEY_W))
+        m_CameraPosition.y -= m_CameraMoveSpeed * timeStep;
+    if (Neon::Input::IsKeyPressed(NEO_KEY_S))
+        m_CameraPosition.y += m_CameraMoveSpeed * timeStep;
+
+    if (Neon::Input::IsKeyPressed(NEO_KEY_Q))
+        m_CameraRotation -= m_CameraRotationSpeed * timeStep;
+    if (Neon::Input::IsKeyPressed(NEO_KEY_E))
+        m_CameraRotation += m_CameraRotationSpeed * timeStep;
+}
+
+void SandboxLayer::OnImGuiRender() {}
+void SandboxLayer::OnEvent(Neon::Event& event) {}

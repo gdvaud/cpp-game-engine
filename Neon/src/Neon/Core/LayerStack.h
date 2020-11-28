@@ -11,18 +11,18 @@ namespace Neon {
         LayerStack();
         ~LayerStack();
 
-        void PushLayer(Layer* layer);
-        void PopLayer(Layer* layer);
+        void PushLayer(const Ref<Layer>& layer);
+        void PopLayer(const Ref<Layer>& layer);
 
-        void PushOverlay(Layer* layer);
-        void PopOverlay(Layer* layer);
+        void PushOverlay(const Ref<Layer>& layer);
+        void PopOverlay(const Ref<Layer>& layer);
 
-        std::vector<Layer*>::iterator begin() { return m_Layers.begin(); }
+        std::vector<Ref<Layer>>::iterator begin() { return m_Layers.begin(); }
 
-        std::vector<Layer*>::iterator end() { return m_Layers.end(); }
+        std::vector<Ref<Layer>>::iterator end() { return m_Layers.end(); }
 
     private:
-        std::vector<Layer*> m_Layers;
+        std::vector<Ref<Layer>> m_Layers;
         uint32_t m_LayerInsertIndex;
     };
 }  // namespace Neon
