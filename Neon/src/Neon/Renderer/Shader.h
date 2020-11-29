@@ -16,5 +16,6 @@ namespace Neon {
         virtual void Unbind() const = 0;
 
         virtual void UploadUniformMat4(const std::string& name, const glm::mat4& matrix) = 0;
+        virtual void UploadUniformInt(const std::string& name, int value) = 0;
     };
 }  // namespace Neon

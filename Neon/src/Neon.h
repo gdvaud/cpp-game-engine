@@ -30,4 +30,5 @@
 #include "Neon/Renderer/RenderCommand.h"
 #include "Neon/Renderer/Renderer.h"
 #include "Neon/Renderer/Shader.h"
+#include "Neon/Renderer/Texture.h"
 #include "Neon/Renderer/VertexArray.h"

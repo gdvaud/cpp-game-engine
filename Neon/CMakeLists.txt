@@ -17,10 +17,17 @@ add_subdirectory(vendor/imgui)
 # Glm
 add_subdirectory(vendor/glm)
 
+# Other sources
+file(GLOB_RECURSE LIBS_SOURCES
+        vendor/stb_image/**.h
+        vendor/stb_image/**.cpp
+)
+
 # Include directories
 include_directories(vendor/spdlog/include)
 include_directories(vendor/glad/include)
 include_directories(vendor/glfw/include)
+include_directories(vendor/stb_image)
 include_directories(vendor/imgui)
 include_directories(vendor/glm)
 include_directories(src)
@@ -29,7 +36,7 @@ include_directories(src)
 file(GLOB_RECURSE SOURCES src/**.h src/**.cpp)
 
 # Create library
-add_library(${PROJECT_NAME} STATIC ${SOURCES})
+add_library(${PROJECT_NAME} STATIC ${SOURCES} ${LIBS_SOURCES})
 #set_target_properties(${PROJECT_NAME} PROPERTIES UNITY_BUILD ON)
 target_precompile_headers(${PROJECT_NAME}
         PRIVATE

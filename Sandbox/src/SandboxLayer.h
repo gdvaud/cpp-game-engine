@@ -27,6 +27,9 @@ private:
 
     Neon::Ref<Neon::Shader> m_VertexColorShader;
     Neon::Ref<Neon::Shader> m_BlueColorShader;
+    Neon::Ref<Neon::Shader> m_TextureColorShader;
+
+    Neon::Ref<Neon::Texture2D> m_Texture;
 
     Neon::Ref<Neon::VertexArray> m_TriangleVertexArray;
     Neon::Ref<Neon::VertexArray> m_SquareVertexArray;

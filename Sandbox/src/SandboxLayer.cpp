@@ -44,11 +44,11 @@ void SandboxLayer::InitModels() {
     {
         // === Model format
         // clang-format off
-        float vertices[3 * 4] = {
-            -0.5f, -0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            0.5f, 0.5f, 0.0f,
-            -0.5f, 0.5f, 0.0f,
+        float vertices[5 * 4] = {
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+            0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+            0.5f, 0.5f, 0.0f, 1.0f, 1.0f,
+            -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
         };
         uint32_t indices[6] = {
             0, 1, 2,
@@ -57,10 +57,8 @@ void SandboxLayer::InitModels() {
         // clang-format on
         Neon::BufferLayout layout = {
             {Neon::ShaderDataType::Float3, "a_Position"},
+            {Neon::ShaderDataType::Float2, "a_TexCoord"},
         };
-
-        // === Shader
-
         // === Model storage
         m_SquareVertexArray = Neon::VertexArray::Create();
 
@@ -142,6 +140,47 @@ void SandboxLayer::InitShaders() {
         m_BlueColorShader = Neon::Shader::Create(vertexStr, fragmentStr);
     }
     //////////////////////////
+
+    //////////////////////////
+    /// Texture Color Shader
+    {
+        std::string vertexStr = R"(
+                #version 330 core
+
+                layout(location = 0) in vec3 a_Position;
+                layout(location = 1) in vec2 a_TexCoord;
+
+                uniform mat4 u_ViewProjection;
+                uniform mat4 u_Transform;
+
+                out vec2 v_TexCoord;
+
+                void main() {
+                    v_TexCoord = a_TexCoord;
+                    gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+                }
+            )";
+        std::string fragmentStr = R"(
+                #version 330 core
+
+                layout(location = 0) out vec4 color;
+
+                in vec2 v_TexCoord;
+
+                uniform sampler2D u_Texture;
+
+                void main() {
+                    color = texture(u_Texture, v_TexCoord);
+                }
+            )";
+        m_TextureColorShader = Neon::Shader::Create(vertexStr, fragmentStr);
+
+        m_Texture = Neon::Texture2D::Create("../../Sandbox/assets/textures/square.png");
+
+        m_TextureColorShader->Bind();
+        m_TextureColorShader->UploadUniformInt("u_Texture", 0);
+    }
+    //////////////////////////
 }
 
 void SandboxLayer::OnUpdate(Neon::TimeStep timeStep) {
@@ -155,9 +194,14 @@ void SandboxLayer::OnUpdate(Neon::TimeStep timeStep) {
 
     Neon::Renderer::BeginScene(m_Camera);
 
-    Neon::Renderer::Submit(m_SquareVertexArray, m_BlueColorShader);
-    Neon::Renderer::Submit(m_TriangleVertexArray, m_VertexColorShader, glm::translate(glm::mat4(1.0f), {-0.5f, 0.f, 0.0f}));
-    Neon::Renderer::Submit(m_TriangleVertexArray, m_VertexColorShader, glm::translate(glm::mat4(1.0f), {0.5f, 0.0f, 0.0f}));
+    m_Texture->Bind();
+    Neon::Renderer::Submit(m_SquareVertexArray, m_TextureColorShader);
+
+    Neon::Renderer::Submit(
+        m_TriangleVertexArray, m_VertexColorShader,
+        glm::translate(glm::mat4(1.0f), {-0.75f, 0.f, 0.0f}) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
+    Neon::Renderer::Submit(m_TriangleVertexArray, m_VertexColorShader,
+                           glm::translate(glm::mat4(1.0f), {0.75f, 0.0f, 0.0f}) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
 
     Neon::Renderer::EndScene();
 }
