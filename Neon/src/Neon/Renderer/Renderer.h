@@ -8,6 +8,9 @@
 namespace Neon {
     class Renderer {
     public:
+        static void Init();
+        static void Shutdown();
+
         static void BeginScene(const Ref<OrthographicCamera>& camera);
         static void EndScene();
 
@@ -21,6 +24,6 @@ namespace Neon {
         };
 
     private:
-        static Scope<SceneData> m_SceneData;
+        static Scope<SceneData> s_SceneData;
     };
 }  // namespace Neon

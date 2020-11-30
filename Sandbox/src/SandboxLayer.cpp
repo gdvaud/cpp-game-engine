@@ -175,7 +175,7 @@ void SandboxLayer::InitShaders() {
             )";
         m_TextureColorShader = Neon::Shader::Create(vertexStr, fragmentStr);
 
-        m_Texture = Neon::Texture2D::Create("../../Sandbox/assets/textures/square.png");
+        m_Texture = Neon::Texture2D::Create("Sandbox/assets/textures/square.png");
 
         m_TextureColorShader->Bind();
         m_TextureColorShader->UploadUniformInt("u_Texture", 0);

@@ -7,18 +7,25 @@ namespace Neon {
 
     class RenderCommand {
     public:
+        inline static void Init() {
+            s_RendererApi->Init();
+        }
+        inline static void Shutdown() {
+            s_RendererApi->Shutdown();
+        }
+
         inline static void SetClearColor(const glm::vec4& color) {
-            m_RendererApi->SetClearColor(color);
+            s_RendererApi->SetClearColor(color);
         }
         inline static void Clear() {
-            m_RendererApi->Clear();
+            s_RendererApi->Clear();
         }
 
         inline static void DrawIndexed(const Ref<VertexArray> vertexArray) {
-            m_RendererApi->DrawIndexed(vertexArray);
+            s_RendererApi->DrawIndexed(vertexArray);
         }
 
     private:
-        static RendererAPI* m_RendererApi;
+        static RendererAPI* s_RendererApi;
     };
 }  // namespace Neon

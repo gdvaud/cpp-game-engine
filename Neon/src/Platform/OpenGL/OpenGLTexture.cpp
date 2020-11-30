@@ -16,14 +16,25 @@ namespace Neon {
         m_Height = height;
 
         // Give texture to OpenGL
-        glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererId);
-        glad_glTextureStorage2D(m_RendererId, 1, GL_RGB8, m_Width, m_Height);
+        GLenum internalFormat = 0, dataFormat = 0;
+        if (channels == 4) {
+            internalFormat = GL_RGBA8;
+            dataFormat = GL_RGBA;
+        }
+        if (channels == 3) {
+            internalFormat = GL_RGB8;
+            dataFormat = GL_RGB;
+        }
+        NEO_CORE_ASSERT(internalFormat & dataFormat, "Unsupported texture format");
 
-        glad_glTextureParameteri(m_RendererId, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glad_glTextureParameteri(m_RendererId, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererId);
+        glTextureStorage2D(m_RendererId, 1, internalFormat, m_Width, m_Height);
+
+        glTextureParameteri(m_RendererId, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTextureParameteri(m_RendererId, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
         glTextureSubImage2D(m_RendererId, 0, 0, 0, m_Width, m_Height,
-                            GL_RGB, GL_UNSIGNED_BYTE, data);
+                            dataFormat, GL_UNSIGNED_BYTE, data);
 
         stbi_image_free(data);
     }
