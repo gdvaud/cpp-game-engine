@@ -4,6 +4,13 @@
 
 namespace Neon {
     class Input {
+    protected:
+        Input() = default;
+
+    public:
+        Input(const Input&) = delete;
+        Input& operator=(const Input&) = delete;
+
     public:
         inline static bool IsKeyPressed(int keyCode) { return m_Instance->IsKeyPressed_Impl(keyCode); }
         inline static bool IsMouseButtonPressed(int buttonCode) {
