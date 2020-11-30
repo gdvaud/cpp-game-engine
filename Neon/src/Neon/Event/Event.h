@@ -42,17 +42,14 @@ namespace Neon {
     }
 
     class EventDispatcher {
-        template <typename T>
-        using EventCallback = std::function<bool(T&)>;
-
     public:
         EventDispatcher(Event& event)
             : m_Event(event) {}
 
-        template <typename T>
-        bool Dispatch(EventCallback<T> callback) {
+        template <typename T, typename F>
+        bool Dispatch(const F& callback) {
             if (m_Event.GetEventType() == T::GetStaticEventType()) {
-                m_Event.Handled = callback(*(T*)&m_Event);
+                m_Event.Handled = callback(static_cast<T&>(m_Event));
             }
 
             return m_Event.Handled;
