@@ -20,7 +20,7 @@ namespace Neon {
 
     void LayerStack::PopLayer(const Ref<Layer>& layer) {
         auto it = std::find(begin(), begin() + m_LayerInsertIndex, layer);
-        if (it != end()) {
+        if (it != begin() + m_LayerInsertIndex) {
             layer->OnDetach();
 
             m_Layers.erase(it);
