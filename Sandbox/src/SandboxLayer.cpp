@@ -173,7 +173,8 @@ void SandboxLayer::InitShaders() {
                     color = texture(u_Texture, v_TexCoord);
                 }
             )";
-        m_TextureColorShader = Neon::Shader::Create(vertexStr, fragmentStr);
+//        m_TextureColorShader = Neon::Shader::Create(vertexStr, fragmentStr);
+        m_TextureColorShader = Neon::Shader::Create("Sandbox/assets/shaders/Texture.glsl");
 
         m_Texture = Neon::Texture2D::Create("Sandbox/assets/textures/square.png");
 

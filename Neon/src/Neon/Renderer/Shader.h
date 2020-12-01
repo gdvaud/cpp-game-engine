@@ -8,6 +8,7 @@
 namespace Neon {
     class Shader {
     public:
+        static Ref<Shader> Create(const std::string& path);
         static Ref<Shader> Create(const std::string& vertexStr, const std::string& fragmentStr);
 
         virtual ~Shader() = default;

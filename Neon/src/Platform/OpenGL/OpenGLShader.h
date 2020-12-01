@@ -5,6 +5,7 @@
 namespace Neon {
     class OpenGLShader : public Shader {
     public:
+        OpenGLShader(const std::string& filepath);
         OpenGLShader(const std::string& vertexStr, const std::string& fragmentStr);
         ~OpenGLShader() override;
 
@@ -15,7 +16,8 @@ namespace Neon {
         void UploadUniformInt(const std::string& name, int value) override;
 
     private:
-        void HandleCompileError(uint32_t shader);
+        GLuint CompileShader(GLenum type, const std::string& source);
+        void LinkShaders(const std::vector<GLuint>& shaderIDs);
 
     private:
         uint32_t m_RendererId;
