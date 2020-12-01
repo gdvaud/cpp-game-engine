@@ -27,9 +27,11 @@ namespace Neon {
 
     private:
         bool OnWindowClosed(WindowClosedEvent& event);
+        bool OnWindowResized(WindowResizedEvent& event);
 
     private:
         bool m_Running = true;
+        bool m_Minimized = false;
         float m_LastFrameTime = 0.0f;
 
         Ref<Window> m_Window;

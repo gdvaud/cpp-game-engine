@@ -11,6 +11,8 @@ namespace Neon {
         static void Init();
         static void Shutdown();
 
+        static void OnWindowResized(uint32_t width, uint32_t height);
+
         static void BeginScene(const Ref<OrthographicCamera>& camera);
         static void EndScene();
 
