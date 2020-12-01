@@ -10,7 +10,7 @@ namespace Neon {
         s_Instance = this;
 
         m_Window = Window::Create();
-        m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+        m_Window->SetEventCallback(NEO_BIND_EVENT_FN(Application::OnEvent));
 
         Renderer::Init();
 
@@ -44,7 +44,7 @@ namespace Neon {
 
     void Application::OnEvent(Event& event) {
         EventDispatcher dispatcher(event);
-        dispatcher.Dispatch<WindowClosedEvent>(BIND_EVENT_FN(Application::OnWindowClosed));
+        dispatcher.Dispatch<WindowClosedEvent>(NEO_BIND_EVENT_FN(Application::OnWindowClosed));
 
         for (auto it = m_LayerStack->end(); it != m_LayerStack->begin();) {
             (*--it)->OnEvent(event);

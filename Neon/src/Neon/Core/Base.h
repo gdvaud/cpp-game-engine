@@ -4,6 +4,8 @@
 
 #define NEO_ENABLE_ASSERTS
 
+#define NEO_BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
+
 namespace Neon {
     // Reference type definition
     template <typename T>

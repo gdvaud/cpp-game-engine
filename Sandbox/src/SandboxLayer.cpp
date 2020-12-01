@@ -2,11 +2,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-SandboxLayer::SandboxLayer()
-    : Layer("Simple"),
-      m_CameraPosition(0.0f) {
-    m_Camera = Neon::CreateRef<Neon::OrthographicCamera>(-1.6f, 1.6f, -0.9f, 0.9f);
-
+SandboxLayer::SandboxLayer() : Layer("Simple"), m_CameraController(1980.0f / 1080.0f, 5.0f, 180.0f) {
     InitModels();
     InitShaders();
 }
@@ -31,7 +27,8 @@ void SandboxLayer::InitModels() {
         // === Model storage
         m_TriangleVertexArray = Neon::VertexArray::Create();
 
-        Neon::Ref<Neon::VertexBuffer> vertexBuffer = Neon::VertexBuffer::Create(vertices, sizeof(vertices) / sizeof(float));
+        Neon::Ref<Neon::VertexBuffer> vertexBuffer =
+            Neon::VertexBuffer::Create(vertices, sizeof(vertices) / sizeof(float));
         vertexBuffer->SetLayout(layout);
         m_TriangleVertexArray->AddVertexBuffer(vertexBuffer);
 
@@ -62,7 +59,8 @@ void SandboxLayer::InitModels() {
         // === Model storage
         m_SquareVertexArray = Neon::VertexArray::Create();
 
-        Neon::Ref<Neon::VertexBuffer> vertexBuffer = Neon::VertexBuffer::Create(vertices, sizeof(vertices) / sizeof(float));
+        Neon::Ref<Neon::VertexBuffer> vertexBuffer =
+            Neon::VertexBuffer::Create(vertices, sizeof(vertices) / sizeof(float));
         vertexBuffer->SetLayout(layout);
         m_SquareVertexArray->AddVertexBuffer(vertexBuffer);
 
@@ -100,16 +98,13 @@ void SandboxLayer::InitShaders() {
                     color = vec4(0, 0, 1, 1);
                 }
             )";
-        m_ShaderLibrary.Load("blue-color",
-                             vertexStr, fragmentStr);
+        m_ShaderLibrary.Load("blue-color", vertexStr, fragmentStr);
     }
     //////////////////////////
 
-    m_ShaderLibrary.Load("vertex-color",
-                         "Sandbox/assets/shaders/VertexColor.glsl");
+    m_ShaderLibrary.Load("vertex-color", "Sandbox/assets/shaders/VertexColor.glsl");
 
-    auto textureShader = m_ShaderLibrary.Load("texture",
-                                              "Sandbox/assets/shaders/Texture.glsl");
+    auto textureShader = m_ShaderLibrary.Load("texture", "Sandbox/assets/shaders/Texture.glsl");
 
     m_Texture = Neon::Texture2D::Create("Sandbox/assets/textures/square.png");
 
@@ -118,44 +113,27 @@ void SandboxLayer::InitShaders() {
 }
 
 void SandboxLayer::OnUpdate(Neon::TimeStep timeStep) {
-    HandleMovement(timeStep);
+    m_CameraController.OnUpdate(timeStep);
 
     Neon::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1});
     Neon::RenderCommand::Clear();
 
-    m_Camera->SetPosition(m_CameraPosition);
-    m_Camera->SetRotation(m_CameraRotation);
-
-    Neon::Renderer::BeginScene(m_Camera);
+    Neon::Renderer::BeginScene(m_CameraController.GetCamera());
 
     m_Texture->Bind();
     Neon::Renderer::Submit(m_SquareVertexArray, m_ShaderLibrary.Get("texture"));
     Neon::Renderer::Submit(m_SquareVertexArray, m_ShaderLibrary.Get("blue-color"),
                            glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
 
-    Neon::Renderer::Submit(m_TriangleVertexArray, m_ShaderLibrary.Get("vertex-color"),
-                           glm::translate(glm::mat4(1.0f), {-0.75f, 0.f, 0.0f}) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
-    Neon::Renderer::Submit(m_TriangleVertexArray, m_ShaderLibrary.Get("vertex-color"),
-                           glm::translate(glm::mat4(1.0f), {0.75f, 0.0f, 0.0f}) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
+    Neon::Renderer::Submit(
+        m_TriangleVertexArray, m_ShaderLibrary.Get("vertex-color"),
+        glm::translate(glm::mat4(1.0f), {-0.75f, 0.f, 0.0f}) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
+    Neon::Renderer::Submit(
+        m_TriangleVertexArray, m_ShaderLibrary.Get("vertex-color"),
+        glm::translate(glm::mat4(1.0f), {0.75f, 0.0f, 0.0f}) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
 
     Neon::Renderer::EndScene();
 }
-void SandboxLayer::HandleMovement(Neon::TimeStep timeStep) {
-    if (Neon::Input::IsKeyPressed(NEO_KEY_A))
-        m_CameraPosition.x -= m_CameraMoveSpeed * timeStep;
-    if (Neon::Input::IsKeyPressed(NEO_KEY_D))
-        m_CameraPosition.x += m_CameraMoveSpeed * timeStep;
-
-    if (Neon::Input::IsKeyPressed(NEO_KEY_W))
-        m_CameraPosition.y += m_CameraMoveSpeed * timeStep;
-    if (Neon::Input::IsKeyPressed(NEO_KEY_S))
-        m_CameraPosition.y -= m_CameraMoveSpeed * timeStep;
-
-    if (Neon::Input::IsKeyPressed(NEO_KEY_Q))
-        m_CameraRotation -= m_CameraRotationSpeed * timeStep;
-    if (Neon::Input::IsKeyPressed(NEO_KEY_E))
-        m_CameraRotation += m_CameraRotationSpeed * timeStep;
-}
 
 void SandboxLayer::OnImGuiRender() {}
-void SandboxLayer::OnEvent(Neon::Event& event) {}
+void SandboxLayer::OnEvent(Neon::Event& event) { m_CameraController.OnEvent(event); }

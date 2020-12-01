@@ -17,16 +17,9 @@ private:
     void HandleMovement(Neon::TimeStep timeStep);
 
 private:
-    Neon::Ref<Neon::OrthographicCamera> m_Camera;
-
-    glm::vec3 m_CameraPosition;
-    float m_CameraMoveSpeed = 3.0f;
-
-    float m_CameraRotation = 0.0f;
-    float m_CameraRotationSpeed = 90.0f;
+    Neon::OrthographicCameraController m_CameraController;
 
     Neon::ShaderLibrary m_ShaderLibrary;
-
     Neon::Ref<Neon::Texture2D> m_Texture;
 
     Neon::Ref<Neon::VertexArray> m_TriangleVertexArray;

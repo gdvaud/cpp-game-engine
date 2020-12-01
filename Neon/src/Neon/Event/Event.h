@@ -22,7 +22,6 @@ namespace Neon {
         MouseScrolled
     };
 
-#define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 #define EVENT_TYPE_DEF(type)                                                 \
     static EventType GetStaticEventType() { return EventType::type; }        \
     EventType GetEventType() const override { return GetStaticEventType(); } \

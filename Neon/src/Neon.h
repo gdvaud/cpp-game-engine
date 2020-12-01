@@ -14,6 +14,7 @@
 #include "Neon/Core/Logger.h"
 #include "Neon/Core/MouseButtonCodes.h"
 #include "Neon/Core/TimeStep.h"
+#include "Neon/OrthographicCameraController.h"
 
 // ImGui
 #include "ImGui/ImGuiLayer.h"

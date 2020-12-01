@@ -7,16 +7,18 @@ namespace Neon {
     public:
         OrthographicCamera(float left, float right, float bottom, float top);
 
+        void SetProjection(float left, float right, float bottom, float top);
+
         const glm::vec3& GetPosition() const { return m_Position; }
         void SetPosition(const glm::vec3& position) {
-            m_Position = position;
             RecalculateViewMatrix();
+            m_Position = position;
         }
 
         float GetRotation() const { return m_Rotation; }
         void SetRotation(const float rotation) {
-            m_Rotation = rotation;
             RecalculateViewMatrix();
+            m_Rotation = rotation;
         }
 
         const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
