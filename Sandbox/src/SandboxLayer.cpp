@@ -72,43 +72,6 @@ void SandboxLayer::InitModels() {
 }
 void SandboxLayer::InitShaders() {
     //////////////////////////
-    /// Vertex Color Shader
-    {
-        std::string vertexStr = R"(
-                #version 330 core
-
-                layout(location = 0) in vec3 a_Position;
-                layout(location = 1) in vec4 a_Color;
-
-                uniform mat4 u_ViewProjection;
-                uniform mat4 u_Transform;
-
-                out vec3 v_Position;
-                out vec4 v_Color;
-
-                void main() {
-                    v_Position = a_Position;
-                    v_Color = a_Color;
-                    gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-                }
-            )";
-        std::string fragmentStr = R"(
-                #version 330 core
-
-                layout(location = 0) out vec4 color;
-
-                in vec3 v_Position;
-                in vec4 v_Color;
-
-                void main() {
-                    color = v_Color;
-                }
-            )";
-        m_VertexColorShader = Neon::Shader::Create(vertexStr, fragmentStr);
-    }
-    //////////////////////////
-
-    //////////////////////////
     /// Blue Color Shader
     {
         std::string vertexStr = R"(
@@ -137,51 +100,21 @@ void SandboxLayer::InitShaders() {
                     color = vec4(0, 0, 1, 1);
                 }
             )";
-        m_BlueColorShader = Neon::Shader::Create(vertexStr, fragmentStr);
+        m_ShaderLibrary.Load("blue-color",
+                             vertexStr, fragmentStr);
     }
     //////////////////////////
 
-    //////////////////////////
-    /// Texture Color Shader
-    {
-        std::string vertexStr = R"(
-                #version 330 core
+    m_ShaderLibrary.Load("vertex-color",
+                         "Sandbox/assets/shaders/VertexColor.glsl");
 
-                layout(location = 0) in vec3 a_Position;
-                layout(location = 1) in vec2 a_TexCoord;
+    auto textureShader = m_ShaderLibrary.Load("texture",
+                                              "Sandbox/assets/shaders/Texture.glsl");
 
-                uniform mat4 u_ViewProjection;
-                uniform mat4 u_Transform;
+    m_Texture = Neon::Texture2D::Create("Sandbox/assets/textures/square.png");
 
-                out vec2 v_TexCoord;
-
-                void main() {
-                    v_TexCoord = a_TexCoord;
-                    gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-                }
-            )";
-        std::string fragmentStr = R"(
-                #version 330 core
-
-                layout(location = 0) out vec4 color;
-
-                in vec2 v_TexCoord;
-
-                uniform sampler2D u_Texture;
-
-                void main() {
-                    color = texture(u_Texture, v_TexCoord);
-                }
-            )";
-//        m_TextureColorShader = Neon::Shader::Create(vertexStr, fragmentStr);
-        m_TextureColorShader = Neon::Shader::Create("Sandbox/assets/shaders/Texture.glsl");
-
-        m_Texture = Neon::Texture2D::Create("Sandbox/assets/textures/square.png");
-
-        m_TextureColorShader->Bind();
-        m_TextureColorShader->UploadUniformInt("u_Texture", 0);
-    }
-    //////////////////////////
+    textureShader->Bind();
+    textureShader->UploadUniformInt("u_Texture", 0);
 }
 
 void SandboxLayer::OnUpdate(Neon::TimeStep timeStep) {
@@ -196,26 +129,27 @@ void SandboxLayer::OnUpdate(Neon::TimeStep timeStep) {
     Neon::Renderer::BeginScene(m_Camera);
 
     m_Texture->Bind();
-    Neon::Renderer::Submit(m_SquareVertexArray, m_TextureColorShader);
+    Neon::Renderer::Submit(m_SquareVertexArray, m_ShaderLibrary.Get("texture"));
+    Neon::Renderer::Submit(m_SquareVertexArray, m_ShaderLibrary.Get("blue-color"),
+                           glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
 
-    Neon::Renderer::Submit(
-        m_TriangleVertexArray, m_VertexColorShader,
-        glm::translate(glm::mat4(1.0f), {-0.75f, 0.f, 0.0f}) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
-    Neon::Renderer::Submit(m_TriangleVertexArray, m_VertexColorShader,
+    Neon::Renderer::Submit(m_TriangleVertexArray, m_ShaderLibrary.Get("vertex-color"),
+                           glm::translate(glm::mat4(1.0f), {-0.75f, 0.f, 0.0f}) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
+    Neon::Renderer::Submit(m_TriangleVertexArray, m_ShaderLibrary.Get("vertex-color"),
                            glm::translate(glm::mat4(1.0f), {0.75f, 0.0f, 0.0f}) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
 
     Neon::Renderer::EndScene();
 }
 void SandboxLayer::HandleMovement(Neon::TimeStep timeStep) {
     if (Neon::Input::IsKeyPressed(NEO_KEY_A))
-        m_CameraPosition.x += m_CameraMoveSpeed * timeStep;
-    if (Neon::Input::IsKeyPressed(NEO_KEY_D))
         m_CameraPosition.x -= m_CameraMoveSpeed * timeStep;
+    if (Neon::Input::IsKeyPressed(NEO_KEY_D))
+        m_CameraPosition.x += m_CameraMoveSpeed * timeStep;
 
     if (Neon::Input::IsKeyPressed(NEO_KEY_W))
-        m_CameraPosition.y -= m_CameraMoveSpeed * timeStep;
-    if (Neon::Input::IsKeyPressed(NEO_KEY_S))
         m_CameraPosition.y += m_CameraMoveSpeed * timeStep;
+    if (Neon::Input::IsKeyPressed(NEO_KEY_S))
+        m_CameraPosition.y -= m_CameraMoveSpeed * timeStep;
 
     if (Neon::Input::IsKeyPressed(NEO_KEY_Q))
         m_CameraRotation -= m_CameraRotationSpeed * timeStep;

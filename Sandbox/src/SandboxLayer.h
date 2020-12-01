@@ -25,9 +25,7 @@ private:
     float m_CameraRotation = 0.0f;
     float m_CameraRotationSpeed = 90.0f;
 
-    Neon::Ref<Neon::Shader> m_VertexColorShader;
-    Neon::Ref<Neon::Shader> m_BlueColorShader;
-    Neon::Ref<Neon::Shader> m_TextureColorShader;
+    Neon::ShaderLibrary m_ShaderLibrary;
 
     Neon::Ref<Neon::Texture2D> m_Texture;
 

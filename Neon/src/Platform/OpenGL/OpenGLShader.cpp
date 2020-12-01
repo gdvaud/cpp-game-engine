@@ -12,11 +12,12 @@ namespace Neon {
         return 0;
     }
 
-    OpenGLShader::OpenGLShader(const std::string& filepath) {
+    OpenGLShader::OpenGLShader(const std::string& name, const std::string& filepath)
+        : m_Name(name) {
         // Fetch sources
         std::string sources;
         {
-            std::ifstream in(filepath, std::ios::in, std::ios::binary);
+            std::ifstream in(filepath, std::ios::in | std::ios::binary);
             if (in) {
                 in.seekg(0, std::ios::end);
                 sources.resize(in.tellg());
@@ -58,7 +59,8 @@ namespace Neon {
 
         LinkShaders(shaderIDs);
     }
-    OpenGLShader::OpenGLShader(const std::string& vertexStr, const std::string& fragmentStr) {
+    OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexStr, const std::string& fragmentStr)
+        : m_Name(name) {
         std::unordered_map<GLenum, std::string> shaderSources;
         shaderSources[GL_VERTEX_SHADER] = vertexStr;
         shaderSources[GL_FRAGMENT_SHADER] = fragmentStr;
@@ -148,4 +150,8 @@ namespace Neon {
         GLint location = glGetUniformLocation(m_RendererId, name.c_str());
         glUniform1i(location, value);
     }
+
+    const std::string& OpenGLShader::GetName() const {
+        return m_Name;
+    };
 }  // namespace Neon
