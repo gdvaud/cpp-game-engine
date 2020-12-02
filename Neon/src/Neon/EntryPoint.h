@@ -3,7 +3,7 @@
 #include "Neon/Core/Application.h"
 #include "Neon/Core/Logger.h"
 
-#ifdef NEON_PLATFORM_WINDOWS
+#ifdef NEO_PLATFORM_WINDOWS
 
 static void Test() {
     std::cout << "Test" << std::endl;

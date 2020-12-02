@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#define NEO_ENABLE_ASSERTS
+#include "PlatformDefinition.h"
 
 #define NEO_BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 
@@ -15,7 +15,7 @@ namespace Neon {
     constexpr Ref<T> CreateRef(Args&&... args) {
         return std::make_shared<T>(std::forward<Args>(args)...);
     }
-    
+
     // Scope type definition
     template <typename T>
     using Scope = std::unique_ptr<T>;
@@ -26,5 +26,6 @@ namespace Neon {
     }
 }  // namespace Neon
 
+#define NEO_ENABLE_ASSERTS
 #include "Neon/Core/Assert.h"
 #include "Neon/Core/Logger.h"

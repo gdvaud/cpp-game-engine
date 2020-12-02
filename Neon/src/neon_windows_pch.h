@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef NEON_PLATFORM_WINDOWS
+#ifdef NEO_PLATFORM_WINDOWS
 
     #define GLFW_INCLUDE_NONE
 
