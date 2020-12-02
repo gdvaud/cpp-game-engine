@@ -126,6 +126,7 @@ namespace Neon {
 
         for (auto shaderId : shaderIDs) {
             glDetachShader(m_RendererId, shaderId);
+            glDeleteShader(shaderId);
         }
     }
 
