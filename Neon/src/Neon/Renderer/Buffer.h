@@ -1,20 +1,7 @@
 #pragma once
 
 namespace Neon {
-    enum class ShaderDataType {
-        None = 0,
-        Float,
-        Float2,
-        Float3,
-        Float4,
-        Mat3,
-        Mat4,
-        Int,
-        Int2,
-        Int3,
-        Int4,
-        Bool
-    };
+    enum class ShaderDataType { None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool };
 
     static uint32_t ShaderDataTypeSize(ShaderDataType type) {
         switch (type) {
@@ -47,11 +34,8 @@ namespace Neon {
 
         BufferElement() {}
 
-        BufferElement(ShaderDataType type,
-                      const std::string& name,
-                      bool normalized = false)
-            : Name(name), Type(type), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(normalized) {
-        }
+        BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
+            : Name(name), Type(type), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(normalized) {}
 
         uint32_t GetComponentCount() const {
             switch (Type) {
@@ -77,8 +61,7 @@ namespace Neon {
     public:
         BufferLayout() {}
 
-        BufferLayout(const std::initializer_list<BufferElement>& elements)
-            : m_Elements(elements), m_Stride(0) {
+        BufferLayout(const std::initializer_list<BufferElement>& elements) : m_Elements(elements), m_Stride(0) {
             CalculateOffsetAndStride();
         }
 

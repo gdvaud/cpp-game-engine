@@ -8,27 +8,20 @@ namespace Neon {
             case Neon::ShaderDataType::Float3:
             case Neon::ShaderDataType::Float4:
             case Neon::ShaderDataType::Mat3:
-            case Neon::ShaderDataType::Mat4:
-                return GL_FLOAT;
+            case Neon::ShaderDataType::Mat4: return GL_FLOAT;
             case Neon::ShaderDataType::Int:
             case Neon::ShaderDataType::Int2:
             case Neon::ShaderDataType::Int3:
-            case Neon::ShaderDataType::Int4:
-                return GL_INT;
-            case Neon::ShaderDataType::Bool:
-                return GL_BOOL;
+            case Neon::ShaderDataType::Int4: return GL_INT;
+            case Neon::ShaderDataType::Bool: return GL_BOOL;
         }
 
         NEO_CORE_ASSERT(false, "Unknown ShaderDataType!");
         return 0;
     }
 
-    OpenGLVertexArray::OpenGLVertexArray() {
-        glCreateVertexArrays(1, &m_RendererId);
-    }
-    OpenGLVertexArray::~OpenGLVertexArray() {
-        glDeleteVertexArrays(1, &m_RendererId);
-    }
+    OpenGLVertexArray::OpenGLVertexArray() { glCreateVertexArrays(1, &m_RendererId); }
+    OpenGLVertexArray::~OpenGLVertexArray() { glDeleteVertexArrays(1, &m_RendererId); }
 
     void OpenGLVertexArray::Bind() const { glBindVertexArray(m_RendererId); }
     void OpenGLVertexArray::Unbind() const { glBindVertexArray(0); }
@@ -43,20 +36,16 @@ namespace Neon {
         const auto& layout = vertexBuffer->GetLayout();
         for (const auto& element : layout) {
             glEnableVertexAttribArray(index + m_VertexBufferIndexOffset);
-            glVertexAttribPointer(index + m_VertexBufferIndexOffset,
-                                  element.GetComponentCount(),
-                                  ShaderDataTypeToOpenGLBaseType(element.Type),
-                                  element.Normalized ? GL_TRUE : GL_FALSE,
-                                  layout.GetStride(),
-                                  (const void*)element.Offset);
+            glVertexAttribPointer(index + m_VertexBufferIndexOffset, element.GetComponentCount(),
+                                  ShaderDataTypeToOpenGLBaseType(element.Type), element.Normalized ? GL_TRUE : GL_FALSE,
+                                  layout.GetStride(), (const void*)element.Offset);
             index++;
         }
 
         m_VertexBuffers.push_back(vertexBuffer);
         m_VertexBufferIndexOffset += layout.GetElements().size();
     }
-    void OpenGLVertexArray::SetIndexBuffer(
-        const Ref<IndexBuffer>& indexBuffer) {
+    void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) {
         glBindVertexArray(m_RendererId);
 
         indexBuffer->Bind();

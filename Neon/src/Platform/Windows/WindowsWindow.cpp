@@ -8,29 +8,21 @@
 namespace Neon {
     static bool GLFWInitialized = false;
 
-    Ref<Window> Window::Create(const WindowSettings& settings) {
-        return CreateRef<WindowsWindow>(settings);
-    }
+    Ref<Window> Window::Create(const WindowSettings& settings) { return CreateRef<WindowsWindow>(settings); }
 
-    WindowsWindow::WindowsWindow(const WindowSettings& settings) {
-        Init(settings);
-    }
+    WindowsWindow::WindowsWindow(const WindowSettings& settings) { Init(settings); }
 
-    WindowsWindow::~WindowsWindow() {
-        Shutdown();
-    }
+    WindowsWindow::~WindowsWindow() { Shutdown(); }
 
-    static void GLFWErrorCallback(int error, const char* desc) {
-        NEO_CORE_ERROR("GLFW Error {0}: {1}", error, desc);
-    }
+    static void GLFWErrorCallback(int error, const char* desc) { NEO_CORE_ERROR("GLFW Error {0}: {1}", error, desc); }
 
     void WindowsWindow::Init(const WindowSettings& settings) {
         m_Data.Title = settings.Title;
         m_Data.Width = settings.Width;
         m_Data.Height = settings.Height;
 
-        NEO_CORE_INFO("Creating window \"{0}\" with Height={1} and Width={2})",
-                      settings.Title, settings.Width, settings.Height);
+        NEO_CORE_INFO("Creating window \"{0}\" with Height={1} and Width={2})", settings.Title, settings.Width,
+                      settings.Height);
 
         if (!GLFWInitialized) {
             int success = glfwInit();
@@ -42,7 +34,7 @@ namespace Neon {
 
         m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 
-        m_Context = new OpenGLContext(m_Window);
+        m_Context = CreateScope<OpenGLContext>(m_Window);
         m_Context->Init();
 
         glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -126,9 +118,7 @@ namespace Neon {
         });
     }
 
-    void WindowsWindow::Shutdown() {
-        glfwDestroyWindow(m_Window);
-    }
+    void WindowsWindow::Shutdown() { glfwDestroyWindow(m_Window); }
 
     void WindowsWindow::OnUpdate() {
         glfwPollEvents();
@@ -136,17 +126,11 @@ namespace Neon {
     }
 
     // == Accessors ==================
-    uint16_t WindowsWindow::GetWidth() const {
-        return m_Data.Width;
-    }
+    uint16_t WindowsWindow::GetWidth() const { return m_Data.Width; }
 
-    uint16_t WindowsWindow::GetHeight() const {
-        return m_Data.Height;
-    }
+    uint16_t WindowsWindow::GetHeight() const { return m_Data.Height; }
 
-    void WindowsWindow::SetEventCallback(const EventCallbackFn& callback) {
-        m_Data.EventCallback = callback;
-    }
+    void WindowsWindow::SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
 
     void WindowsWindow::SetVSync(bool enabled) {
         if (enabled) {
@@ -158,8 +142,6 @@ namespace Neon {
         m_Data.VSync = enabled;
     }
 
-    bool WindowsWindow::IsVSync() {
-        return m_Data.VSync;
-    }
+    bool WindowsWindow::IsVSync() { return m_Data.VSync; }
     // ===============================
 }  // namespace Neon

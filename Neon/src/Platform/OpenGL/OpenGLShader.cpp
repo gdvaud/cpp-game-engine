@@ -12,8 +12,7 @@ namespace Neon {
         return 0;
     }
 
-    OpenGLShader::OpenGLShader(const std::string& name, const std::string& filepath)
-        : m_Name(name) {
+    OpenGLShader::OpenGLShader(const std::string& name, const std::string& filepath) : m_Name(name) {
         // Fetch sources
         std::string sources;
         {
@@ -49,8 +48,7 @@ namespace Neon {
 
                 typeTokenPos = sources.find(typeToken, nextLinePos);
                 shaderSources[type] = sources.substr(
-                    nextLinePos,
-                    typeTokenPos - (nextLinePos == std::string::npos ? sources.size() - 1 : nextLinePos));
+                    nextLinePos, typeTokenPos - (nextLinePos == std::string::npos ? sources.size() - 1 : nextLinePos));
             }
         }
 
@@ -132,17 +130,11 @@ namespace Neon {
         }
     }
 
-    OpenGLShader::~OpenGLShader() {
-        glDeleteProgram(m_RendererId);
-    }
+    OpenGLShader::~OpenGLShader() { glDeleteProgram(m_RendererId); }
 
-    void OpenGLShader::Bind() const {
-        glUseProgram(m_RendererId);
-    }
+    void OpenGLShader::Bind() const { glUseProgram(m_RendererId); }
 
-    void OpenGLShader::Unbind() const {
-        glUseProgram(0);
-    }
+    void OpenGLShader::Unbind() const { glUseProgram(0); }
 
     void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix) {
         GLint location = glGetUniformLocation(m_RendererId, name.c_str());
@@ -154,7 +146,5 @@ namespace Neon {
         glUniform1i(location, value);
     }
 
-    const std::string& OpenGLShader::GetName() const {
-        return m_Name;
-    };
+    const std::string& OpenGLShader::GetName() const { return m_Name; };
 }  // namespace Neon

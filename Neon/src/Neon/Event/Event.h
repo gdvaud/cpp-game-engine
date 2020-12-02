@@ -36,14 +36,11 @@ namespace Neon {
         virtual std::string ToString() const { return GetName(); }
     };
 
-    inline std::ostream& operator<<(std::ostream& os, const Event& event) {
-        return os << event.ToString();
-    }
+    inline std::ostream& operator<<(std::ostream& os, const Event& event) { return os << event.ToString(); }
 
     class EventDispatcher {
     public:
-        EventDispatcher(Event& event)
-            : m_Event(event) {}
+        EventDispatcher(Event& event) : m_Event(event) {}
 
         template <typename T, typename F>
         bool Dispatch(const F& callback) {

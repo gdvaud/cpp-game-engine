@@ -22,9 +22,7 @@ namespace Neon {
         return nullptr;
     }
 
-    void ShaderLibrary::Add(const std::string& name, Ref<Shader>& shader) {
-        m_Shaders[name] = shader;
-    }
+    void ShaderLibrary::Add(const std::string& name, Ref<Shader>& shader) { m_Shaders[name] = shader; }
 
     Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath) {
         auto shader = Shader::Create(name, filepath);
@@ -32,7 +30,8 @@ namespace Neon {
         return shader;
     }
 
-    Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& vertexStr, const std::string& fragmentStr) {
+    Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& vertexStr,
+                                    const std::string& fragmentStr) {
         auto shader = Shader::Create(name, vertexStr, fragmentStr);
         m_Shaders[name] = shader;
         return shader;
@@ -42,7 +41,5 @@ namespace Neon {
         NEO_CORE_ASSERT(Exists(name), "Shader not found in library")
         return m_Shaders[name];
     }
-    bool ShaderLibrary::Exists(const std::string& name) {
-        return m_Shaders.find(name) != m_Shaders.end();
-    }
+    bool ShaderLibrary::Exists(const std::string& name) { return m_Shaders.find(name) != m_Shaders.end(); }
 }  // namespace Neon

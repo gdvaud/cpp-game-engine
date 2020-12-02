@@ -17,9 +17,7 @@ namespace Neon {
             return m_Instance->IsMouseButtonPressed_Impl(buttonCode);
         }
 
-        inline static std::pair<float, float> GetMousePosition() {
-            return m_Instance->GetMousePosition_Impl();
-        }
+        inline static std::pair<float, float> GetMousePosition() { return m_Instance->GetMousePosition_Impl(); }
         inline static float GetMouseX() { return m_Instance->GetMouseX_Impl(); }
         inline static float GetMouseY() { return m_Instance->GetMouseY_Impl(); }
 

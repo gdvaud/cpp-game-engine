@@ -11,9 +11,7 @@ namespace Neon {
         uint16_t Width;
         uint16_t Height;
 
-        WindowSettings(const std::string& title = "Hazel Engine",
-                       uint16_t width = 1280,
-                       uint16_t height = 720)
+        WindowSettings(const std::string& title = "Hazel Engine", uint16_t width = 1280, uint16_t height = 720)
             : Title(title), Width(width), Height(height) {}
     };
 

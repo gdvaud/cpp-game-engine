@@ -34,6 +34,6 @@ namespace Neon {
         glm::mat4 m_ViewProjectionMatrix;
 
         glm::vec3 m_Position;
-        float m_Rotation; // In radians
+        float m_Rotation;  // In radians
     };
 }  // namespace Neon

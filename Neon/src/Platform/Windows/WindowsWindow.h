@@ -27,7 +27,7 @@ namespace Neon {
 
     private:
         GLFWwindow* m_Window;
-        GraphicContext* m_Context;
+        Scope<GraphicContext> m_Context;
 
         struct WindowData {
             std::string Title;

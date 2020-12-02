@@ -6,16 +6,11 @@ namespace Neon {
 
     class MouseMovedEvent : public Event {
     public:
-        MouseMovedEvent(float x, float y)
-            : m_X(x), m_Y(y) {}
+        MouseMovedEvent(float x, float y) : m_X(x), m_Y(y) {}
 
-        inline float GetX() const {
-            return m_X;
-        }
+        inline float GetX() const { return m_X; }
 
-        inline float GetY() const {
-            return m_Y;
-        }
+        inline float GetY() const { return m_Y; }
 
         std::string ToString() const override {
             std::stringstream ss;
@@ -32,16 +27,11 @@ namespace Neon {
 
     class MouseScrolledEvent : public Event {
     public:
-        MouseScrolledEvent(float xOffset, float yOffset)
-            : m_XOffset(xOffset), m_YOffset(yOffset) {}
+        MouseScrolledEvent(float xOffset, float yOffset) : m_XOffset(xOffset), m_YOffset(yOffset) {}
 
-        inline float GetXOffset() const {
-            return m_XOffset;
-        }
+        inline float GetXOffset() const { return m_XOffset; }
 
-        inline float GetYOffset() const {
-            return m_YOffset;
-        }
+        inline float GetYOffset() const { return m_YOffset; }
 
         std::string ToString() const override {
             std::stringstream ss;
@@ -58,9 +48,7 @@ namespace Neon {
 
     class MouseButtonEvent : public Event {
     public:
-        inline int GetButtonCode() const {
-            return m_ButtonCode;
-        }
+        inline int GetButtonCode() const { return m_ButtonCode; }
 
     protected:
         MouseButtonEvent(int buttonCode) : m_ButtonCode(buttonCode) {}

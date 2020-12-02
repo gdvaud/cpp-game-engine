@@ -5,9 +5,7 @@
 
 #ifdef NEO_PLATFORM_WINDOWS
 
-static void Test() {
-    std::cout << "Test" << std::endl;
-}
+static void Test() { std::cout << "Test" << std::endl; }
 
 extern Neon::Application* Neon::CreateApplication();
 

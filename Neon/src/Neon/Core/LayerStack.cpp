@@ -2,13 +2,9 @@
 
 namespace Neon {
 
-    LayerStack::LayerStack() {
-        m_LayerInsertIndex = 0;
-    }
+    LayerStack::LayerStack() { m_LayerInsertIndex = 0; }
 
-    LayerStack::~LayerStack() {
-        m_Layers.clear();
-    }
+    LayerStack::~LayerStack() { m_Layers.clear(); }
 
     void LayerStack::PushLayer(const Ref<Layer>& layer) {
         if (layer != nullptr) {

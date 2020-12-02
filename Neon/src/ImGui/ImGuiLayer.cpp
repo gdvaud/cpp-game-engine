@@ -61,6 +61,5 @@ namespace Neon {
             glfwMakeContextCurrent(current_context);
         }
     }
-    void ImGuiLayer::OnImGuiRender() {
-    }
+    void ImGuiLayer::OnImGuiRender() {}
 }  // namespace Neon

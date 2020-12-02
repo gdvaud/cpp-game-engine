@@ -3,8 +3,7 @@
 namespace Neon {
     class TimeStep {
     public:
-        TimeStep(float time = 0.0f)
-            : m_Time(time) {}
+        TimeStep(float time = 0.0f) : m_Time(time) {}
 
         operator float() const { return m_Time; }
 

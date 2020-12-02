@@ -6,17 +6,12 @@ namespace Neon {
 
     class WindowResizedEvent : public Event {
     public:
-        WindowResizedEvent(uint32_t width, uint32_t height)
-            : m_Width(width), m_Height(height) {}
+        WindowResizedEvent(uint32_t width, uint32_t height) : m_Width(width), m_Height(height) {}
 
         // Getters
-        inline uint32_t GetWidth() const {
-            return m_Width;
-        }
+        inline uint32_t GetWidth() const { return m_Width; }
 
-        inline uint32_t GetHeight() const {
-            return m_Height;
-        }
+        inline uint32_t GetHeight() const { return m_Height; }
 
         // Overrides
         EVENT_TYPE_DEF(WindowResized);

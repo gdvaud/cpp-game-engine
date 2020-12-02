@@ -3,8 +3,7 @@
 #include <stb_image.h>
 
 namespace Neon {
-    OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
-        : m_Path(path) {
+    OpenGLTexture2D::OpenGLTexture2D(const std::string& path) : m_Path(path) {
         // Load texture from path
         int width, height, channels;
         //        stbi_set_flip_vertically_on_load(1);
@@ -33,16 +32,11 @@ namespace Neon {
         glTextureParameteri(m_RendererId, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTextureParameteri(m_RendererId, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-        glTextureSubImage2D(m_RendererId, 0, 0, 0, m_Width, m_Height,
-                            dataFormat, GL_UNSIGNED_BYTE, data);
+        glTextureSubImage2D(m_RendererId, 0, 0, 0, m_Width, m_Height, dataFormat, GL_UNSIGNED_BYTE, data);
 
         stbi_image_free(data);
     }
-    OpenGLTexture2D::~OpenGLTexture2D() {
-        glDeleteTextures(1, &m_RendererId);
-    }
+    OpenGLTexture2D::~OpenGLTexture2D() { glDeleteTextures(1, &m_RendererId); }
 
-    void OpenGLTexture2D::Bind(uint32_t slot) const {
-        glBindTextureUnit(slot, m_RendererId);
-    }
+    void OpenGLTexture2D::Bind(uint32_t slot) const { glBindTextureUnit(slot, m_RendererId); }
 }  // namespace Neon
