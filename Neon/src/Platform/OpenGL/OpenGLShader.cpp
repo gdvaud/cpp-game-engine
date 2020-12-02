@@ -45,6 +45,8 @@ namespace Neon {
                 NEO_CORE_ASSERT(type, "Invalid shader type specified");
 
                 auto nextLinePos = sources.find_first_not_of("\r\n", eol);
+                NEO_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
+
                 typeTokenPos = sources.find(typeToken, nextLinePos);
                 shaderSources[type] = sources.substr(
                     nextLinePos,
