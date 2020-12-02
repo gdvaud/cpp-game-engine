@@ -11,14 +11,14 @@ namespace Neon {
 
         const glm::vec3& GetPosition() const { return m_Position; }
         void SetPosition(const glm::vec3& position) {
-            RecalculateViewMatrix();
             m_Position = position;
+            RecalculateViewMatrix();
         }
 
         float GetRotation() const { return m_Rotation; }
         void SetRotation(const float rotation) {
-            RecalculateViewMatrix();
             m_Rotation = rotation;
+            RecalculateViewMatrix();
         }
 
         const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
@@ -34,6 +34,6 @@ namespace Neon {
         glm::mat4 m_ViewProjectionMatrix;
 
         glm::vec3 m_Position;
-        float m_Rotation;
+        float m_Rotation; // In radians
     };
 }  // namespace Neon

@@ -14,8 +14,6 @@ private:
     void InitModels();
     void InitShaders();
 
-    void HandleMovement(Neon::TimeStep timeStep);
-
 private:
     Neon::OrthographicCameraController m_CameraController;
 

@@ -19,20 +19,32 @@ namespace Neon {
     OrthographicCameraController::OrthographicCameraController(float aspectRatio, float cameraMoveSpeed,
                                                                float cameraRotationSpeed)
         : m_AspectRatio(aspectRatio),
-          m_Rotating(false),
+          m_Rotating(true),
           m_CameraMoveSpeed(cameraMoveSpeed),
-          m_CameraRotationSpeed(cameraRotationSpeed),
+          m_CameraRotationSpeed(glm::radians(cameraRotationSpeed)),
           m_CameraZoomSpeed(0.25f) {
         m_Camera = CreateRef<OrthographicCamera>(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel,
                                                  -m_ZoomLevel, m_ZoomLevel);
     }
 
     void OrthographicCameraController::OnUpdate(TimeStep timeStep) {
-        if (Input::IsKeyPressed(NEO_KEY_A)) m_CameraPosition.x -= m_CameraMoveSpeed * m_ZoomLevel * timeStep;
-        if (Input::IsKeyPressed(NEO_KEY_D)) m_CameraPosition.x += m_CameraMoveSpeed * m_ZoomLevel * timeStep;
+        if (Input::IsKeyPressed(NEO_KEY_A)) {
+            m_CameraPosition.x -= cos(m_CameraRotation) * m_CameraMoveSpeed * m_ZoomLevel * timeStep;
+            m_CameraPosition.y -= sin(m_CameraRotation) * m_CameraMoveSpeed * m_ZoomLevel * timeStep;
+        }
+        if (Input::IsKeyPressed(NEO_KEY_D)) {
+            m_CameraPosition.x += cos(m_CameraRotation) * m_CameraMoveSpeed * m_ZoomLevel * timeStep;
+            m_CameraPosition.y += sin(m_CameraRotation) * m_CameraMoveSpeed * m_ZoomLevel * timeStep;
+        }
 
-        if (Input::IsKeyPressed(NEO_KEY_W)) m_CameraPosition.y += m_CameraMoveSpeed * m_ZoomLevel * timeStep;
-        if (Input::IsKeyPressed(NEO_KEY_S)) m_CameraPosition.y -= m_CameraMoveSpeed * m_ZoomLevel * timeStep;
+        if (Input::IsKeyPressed(NEO_KEY_W)) {
+            m_CameraPosition.x += -sin(m_CameraRotation) * m_CameraMoveSpeed * m_ZoomLevel * timeStep;
+            m_CameraPosition.y += cos(m_CameraRotation) * m_CameraMoveSpeed * m_ZoomLevel * timeStep;
+        }
+        if (Input::IsKeyPressed(NEO_KEY_S)) {
+            m_CameraPosition.x -= -sin(m_CameraRotation) * m_CameraMoveSpeed * m_ZoomLevel * timeStep;
+            m_CameraPosition.y -= cos(m_CameraRotation) * m_CameraMoveSpeed * m_ZoomLevel * timeStep;
+        }
 
         m_Camera->SetPosition(m_CameraPosition);
 
