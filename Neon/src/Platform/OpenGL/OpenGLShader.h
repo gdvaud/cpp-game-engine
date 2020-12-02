@@ -12,8 +12,9 @@ namespace Neon {
         void Bind() const override;
         void Unbind() const override;
 
-        void UploadUniformMat4(const std::string& name, const glm::mat4& matrix) override;
-        void UploadUniformInt(const std::string& name, int value) override;
+        void SetFloat4(const std::string& name, const glm::vec4& value) override;
+        void SetMat4(const std::string& name, const glm::mat4& matrix) override;
+        void SetInt(const std::string& name, int value) override;
 
         const std::string& GetName() const override;
 

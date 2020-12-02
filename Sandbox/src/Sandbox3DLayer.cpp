@@ -1,12 +1,12 @@
-#include "SandboxLayer.h"
+#include "Sandbox3DLayer.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
-SandboxLayer::SandboxLayer() : Layer("Simple"), m_CameraController(1980.0f / 1080.0f, 5.0f, 180.0f) {
+Sandbox3DLayer::Sandbox3DLayer() : Layer("Sandbox3DLayer "), m_CameraController(1980.0f / 1080.0f, 5.0f, 180.0f) {
     InitModels();
     InitShaders();
 }
-void SandboxLayer::InitModels() {
+void Sandbox3DLayer::InitModels() {
     //////////////////////////
     /// Triangle model
     {
@@ -68,7 +68,7 @@ void SandboxLayer::InitModels() {
     }
     //////////////////////////
 }
-void SandboxLayer::InitShaders() {
+void Sandbox3DLayer::InitShaders() {
     //////////////////////////
     /// Blue Color Shader
     {
@@ -109,10 +109,10 @@ void SandboxLayer::InitShaders() {
     m_Texture = Neon::Texture2D::Create("Sandbox/assets/textures/square.png");
 
     textureShader->Bind();
-    textureShader->UploadUniformInt("u_Texture", 0);
+    textureShader->SetInt("u_Texture", 0);
 }
 
-void SandboxLayer::OnUpdate(Neon::TimeStep timeStep) {
+void Sandbox3DLayer::OnUpdate(Neon::TimeStep timeStep) {
     m_CameraController.OnUpdate(timeStep);
 
     Neon::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1});
@@ -135,5 +135,5 @@ void SandboxLayer::OnUpdate(Neon::TimeStep timeStep) {
     Neon::Renderer::EndScene();
 }
 
-void SandboxLayer::OnImGuiRender() {}
-void SandboxLayer::OnEvent(Neon::Event& event) { m_CameraController.OnEvent(event); }
+void Sandbox3DLayer::OnImGuiRender() {}
+void Sandbox3DLayer::OnEvent(Neon::Event& event) { m_CameraController.OnEvent(event); }

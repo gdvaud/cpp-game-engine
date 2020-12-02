@@ -10,9 +10,8 @@
 namespace Neon {
     class OrthographicCameraController {
     public:
-        OrthographicCameraController(float aspectRatio, float cameraMoveSpeed = 5.0f);
-        OrthographicCameraController(float aspectRatio, float cameraMoveSpeed = 5.0f,
-                                     float cameraRotationSpeed = 180.0f);
+        OrthographicCameraController(float aspectRatio, float cameraMoveSpeed);
+        OrthographicCameraController(float aspectRatio, float cameraMoveSpeed, float cameraRotationSpeed);
 
         void OnUpdate(TimeStep timeStep);
         void OnEvent(Event& e);

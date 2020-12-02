@@ -2,9 +2,9 @@
 
 #include <Neon.h>
 
-class SandboxLayer : public Neon::Layer {
+class Sandbox3DLayer : public Neon::Layer {
 public:
-    SandboxLayer();
+    Sandbox3DLayer();
 
     void OnUpdate(Neon::TimeStep timeStep) override;
     void OnImGuiRender() override;
