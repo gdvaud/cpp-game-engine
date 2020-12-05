@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Neon/Renderer/Shader.h"
+#include "Neon/Graphics/Shader.h"
 
 namespace Neon {
     class OpenGLShader : public Shader {

@@ -1,8 +1,8 @@
 #include "OrthographicCameraController.h"
 
 #include "Neon/Core/Base.h"
-#include "Neon/Core/Input.h"
-#include "Neon/Core/KeyCodes.h"
+#include "Neon/Input/Input.h"
+#include "Neon/Input/KeyCodes.h"
 
 namespace Neon {
 

@@ -2,8 +2,8 @@
 
 #include <vector>
 
+#include "Buffer.h"
 #include "Neon/Core/Base.h"
-#include "Neon/Renderer/Buffer.h"
 
 namespace Neon {
     class VertexArray {

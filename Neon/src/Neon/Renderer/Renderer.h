@@ -1,9 +1,9 @@
 #pragma once
 
+#include "Neon/Graphics/Shader.h"
+#include "Neon/Graphics/VertexArray.h"
 #include "Neon/Renderer/OrthographicCamera.h"
 #include "Neon/Renderer/RendererAPI.h"
-#include "Neon/Renderer/Shader.h"
-#include "Neon/Renderer/VertexArray.h"
 
 namespace Neon {
     class Renderer {

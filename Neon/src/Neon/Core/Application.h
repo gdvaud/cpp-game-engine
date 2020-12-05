@@ -6,7 +6,7 @@
 #include "Neon/Core/LayerStack.h"
 #include "Neon/Event/ApplicationEvent.h"
 #include "Neon/Event/Event.h"
-#include "Window.h"
+#include "Neon/Graphics/Window.h"
 
 namespace Neon {
     class Application {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Neon/Core/Input.h"
+#include "Neon/Input/Input.h"
 #include "neon_pch.h"
 
 namespace Neon {

@@ -8,12 +8,12 @@
 #include "Neon/Core/Application.h"
 #include "Neon/Core/Assert.h"
 #include "Neon/Core/Base.h"
-#include "Neon/Core/Input.h"
-#include "Neon/Core/KeyCodes.h"
 #include "Neon/Core/Layer.h"
 #include "Neon/Core/Logger.h"
-#include "Neon/Core/MouseButtonCodes.h"
 #include "Neon/Core/TimeStep.h"
+#include "Neon/Input/Input.h"
+#include "Neon/Input/KeyCodes.h"
+#include "Neon/Input/MouseButtonCodes.h"
 #include "Neon/OrthographicCameraController.h"
 
 // ImGui
@@ -26,10 +26,10 @@
 #include "Neon/Event/MouseEvent.h"
 
 // Renderer
-#include "Neon/Renderer/Buffer.h"
+#include "Neon/Graphics/Buffer.h"
+#include "Neon/Graphics/Shader.h"
+#include "Neon/Graphics/Texture.h"
+#include "Neon/Graphics/VertexArray.h"
 #include "Neon/Renderer/OrthographicCamera.h"
 #include "Neon/Renderer/RenderCommand.h"
 #include "Neon/Renderer/Renderer.h"
-#include "Neon/Renderer/Shader.h"
-#include "Neon/Renderer/Texture.h"
-#include "Neon/Renderer/VertexArray.h"

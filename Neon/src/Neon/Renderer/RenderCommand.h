@@ -1,7 +1,7 @@
 #pragma once
 
+#include "Neon/Graphics/VertexArray.h"
 #include "Neon/Renderer/RendererAPI.h"
-#include "Neon/Renderer/VertexArray.h"
 
 namespace Neon {
 
