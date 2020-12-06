@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Neon/Graphics/GraphicContext.h"
+#include "Neon/Graphic/GraphicContext.h"
 
 struct GLFWwindow;
 

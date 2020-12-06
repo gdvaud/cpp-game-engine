@@ -1,6 +1,8 @@
 #include "Application.h"
 
+#include "Neon/Graphic/Window.h"
 #include "Neon/Renderer/Renderer.h"
+#include "Neon/Renderer/Renderer2D.h"
 
 namespace Neon {
     Application* Application::s_Instance = nullptr;
@@ -13,6 +15,7 @@ namespace Neon {
         m_Window->SetEventCallback(NEO_BIND_EVENT_FN(Application::OnEvent));
 
         Renderer::Init();
+        Renderer2D::Init();
 
         m_LayerStack = CreateRef<LayerStack>();
 

@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "Neon/Graphics/VertexArray.h"
+#include "Neon/Graphic/VertexArray.h"
 
 namespace Neon {
     class RendererAPI {

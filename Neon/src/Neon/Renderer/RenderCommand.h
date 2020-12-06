@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Neon/Graphics/VertexArray.h"
+#include "Neon/Graphic/VertexArray.h"
 #include "Neon/Renderer/RendererAPI.h"
 
 namespace Neon {

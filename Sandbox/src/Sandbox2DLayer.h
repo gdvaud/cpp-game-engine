@@ -15,10 +15,6 @@ public:
 private:
     Neon::OrthographicCameraController m_CameraController;
 
-    // TODO: Move
-    Neon::ShaderLibrary m_ShaderLibrary;
-    Neon::Ref<Neon::VertexArray> m_SquareVA;
-
     glm::vec3 m_SquarePosition = {0.0f, 0.0f, 0.0f};
     float m_SquareScale = 1.0f;
     glm::vec4 m_SquareColor = {0.0f, 0.0f, 0.0f, 1.0f};

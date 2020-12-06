@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Neon/Graphics/Buffer.h"
+#include "Neon/Graphic/Buffer.h"
 
 namespace Neon {
     class OpenGLVertexBuffer : public VertexBuffer {

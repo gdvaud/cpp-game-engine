@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Neon/Graphics/GraphicContext.h"
-#include "Neon/Graphics/Window.h"
+#include "Neon/Graphic/GraphicContext.h"
+#include "Neon/Graphic/Window.h"
 #include "neon_windows_pch.h"
 
 namespace Neon {

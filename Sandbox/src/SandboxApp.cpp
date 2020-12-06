@@ -5,4 +5,7 @@
 
 Neon::Application* Neon::CreateApplication() { return new SandboxApp(); }
 
-SandboxApp::SandboxApp() { PushLayer(Neon::CreateRef<Sandbox2DLayer>()); }
+SandboxApp::SandboxApp() {
+//    PushLayer(Neon::CreateRef<Sandbox3DLayer>());
+    PushLayer(Neon::CreateRef<Sandbox2DLayer>());
+}

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Neon/Graphics/Shader.h"
-#include "Neon/Graphics/VertexArray.h"
+#include "Neon/Graphic/Shader.h"
+#include "Neon/Graphic/VertexArray.h"
 #include "Neon/Renderer/OrthographicCamera.h"
 #include "Neon/Renderer/RendererAPI.h"
 

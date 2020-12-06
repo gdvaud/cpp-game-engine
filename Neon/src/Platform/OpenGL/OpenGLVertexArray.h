@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Neon/Graphics/VertexArray.h"
+#include "Neon/Graphic/VertexArray.h"
 
 namespace Neon {
     class OpenGLVertexArray : public VertexArray {

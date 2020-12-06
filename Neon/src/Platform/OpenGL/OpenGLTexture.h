@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-#include "Neon/Graphics/Texture.h"
+#include "Neon/Graphic/Texture.h"
 
 namespace Neon {
     class OpenGLTexture2D : public Texture2D {
